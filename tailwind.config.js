@@ -22,6 +22,9 @@ module.exports = {
           'semipink': '#FF479B',
           'lightpink': '#FF80BA'
         }
+      },
+      fontFamily: {
+        'poppins': ['"Poppins"', 'sans-serif']
       }
     }
   },
