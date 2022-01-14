@@ -1,5 +1,7 @@
 import Head from "next/head";
 import First from "../components/home/first";
+import Navbar from "../components/Navbar";
+import Second from "../components/home/second";
 
 export default function Home() {
   return (
@@ -18,8 +20,9 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-
-      <First></First>
+      <Navbar />
+      <First />
+      <Second />
     </div>
   );
 }

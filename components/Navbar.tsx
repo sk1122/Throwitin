@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <nav className="flex justify-between w-full bg-brand-dark text-white px-32 py-2 pt-4 items-center">
+    <nav className="flex justify-between w-full bg-brand-dark text-white px-16 py-4 items-center">
       <div className="text-lg font-bold">throwitin</div>
       <div className="">
         <ul className="flex space-x-5">

@@ -2,9 +2,9 @@ import SmallCard from "../SmallCard";
 
 interface Props {}
 
-const second = (props: Props) => {
+const Second = (props: Props) => {
   return (
-    <div className="w-full h-screen flex flex-col items-center bg-brand-dark py-12 px-32 text-white">
+    <div className="w-full h-screen flex flex-col items-center bg-brand-dark px-16 text-white justify-center">
       {/* part #1 */}
       <div className="w-full flex justify-between mb-20">
         <span className="text-3xl font-bold text-transparent md:text-5xl bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-fuchsia-500">
@@ -34,11 +34,11 @@ const second = (props: Props) => {
           </button>
         </div>
         <div className="w-1/2 h-full flex items-center justify-center px-20 ">
-          <div className="w-full h-full  relative">
-            <div className="absolute top-0 left-20">
+          <div className="w-full h-full relative">
+            <div className="absolute top-0 left-36">
               <SmallCard title="Total Amount Raised" />
             </div>
-            <div className="absolute top-36 left-72">
+            <div className="absolute top-36 left-80">
               <SmallCard title="Total Projects Funded" />
             </div>
           </div>
@@ -48,4 +48,4 @@ const second = (props: Props) => {
   );
 };
 
-export default second;
+export default Second;
