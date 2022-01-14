@@ -33,7 +33,7 @@ export default function First() {
           </defs>
         </svg>
       </div>
-      <div className="h-screen bg-brand-dark flex justify-center items-start text-left flex-col text-white">
+      <div className="h-screen bg-gradient flex justify-center items-start text-left flex-col text-white">
         <div className="mx-16 space-y-8">
           <h1 className="font-poppins text-5xl font-bold w-11/12">
             Creative work shows <br />
