@@ -10,6 +10,7 @@ module.exports = {
           'dark': '#000814',
           'lightdark': '#001D3D',
           'heropink': '#FFB0D4',
+          'cardblue': '#001833',
           'deepblue': '#003566',
           'oceanblue': '#0069C9',
           'darkpurple': '#240046',
@@ -25,7 +26,7 @@ module.exports = {
       },
       fontFamily: {
         'poppins': ['"Poppins"', 'sans-serif']
-      }
+      },
     }
   },
   plugins: [],
