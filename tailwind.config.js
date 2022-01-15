@@ -21,7 +21,7 @@ module.exports = {
           'lightpurple': '#C77DFF',
           'pink': '#E8006A',
           'semipink': '#FF479B',
-          'lightpink': '#FF80BA'
+          'lightpink': '#FF8CC1'
         }
       },
       fontFamily: {

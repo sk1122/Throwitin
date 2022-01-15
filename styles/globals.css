@@ -6,3 +6,37 @@
 	background: rgb(157,78,221);
 	background: radial-gradient(ellipse at bottom left, rgba(157,78,221,1) 0%, rgba(0,0,0,1)40%, rgba(0,8,20,1) 100%);
 }
+
+.bg-fourth-gradient {
+	background: rgba(89,175,255, 1);
+	background: radial-gradient(circle at bottom left, rgba(89,175,255, 1) 0%, rgba(0,0,0,1)30%, rgba(0,8,20,1) 100%);
+}
+
+.text-152 {
+	font-size: 43rem;
+}
+
+.h-152 {
+	height: 35rem;
+}
+
+.h-card {
+	height: 43rem;
+}
+
+.bigcard {
+	background: rgb(255,255,255);
+	background: linear-gradient(124deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.45) 40%, rgba(255,255,255,0.25) 70%, rgba(255,255,255,0.2413340336134454) 100%);
+}
+
+@layer utilities {
+	/* Chrome, Safari and Opera */
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+  
+	.no-scrollbar {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+}

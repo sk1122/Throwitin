@@ -12,11 +12,11 @@ type Props = {
 
 const Project: FC<Props> = ({ title, description, verified, status, raised }) => {
 	return (
-		<div className="w-96 h-2/3 bg-brand-cardblue flex flex-col">
+		<div className="w-96 h-152 bg-brand-cardblue flex flex-col">
 			<div className="relative w-96 h-1/2">
 				<Image src="https://images.unsplash.com/photo-1642146389720-2561f65902c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=397&q=80" alt="" layout="fill" />
 			</div>
-			<div className="w-full h-1/2 flex flex-col justify-start items-start px-6 py-2 space-y-3">
+			<div className="w-full h-1/2 flex flex-col justify-start items-start px-6 py-2 space-y-5">
 				<div className="text-green-400 flex justify-center items-center space-x-1 mt-3">
 					<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" data-name="86977684-12db-4850-8f30-233a7c267d11" viewBox="0 0 2000 2000">
 						<path d="M1000 2000c554.17 0 1000-445.83 1000-1000S1554.17 0 1000 0 0 445.83 0 1000s445.83 1000 1000 1000z" fill="#2775ca"/>
@@ -26,7 +26,7 @@ const Project: FC<Props> = ({ title, description, verified, status, raised }) =>
 					<p className="font-poppins font-medium text-sm">{raised} Raised</p>
 				</div>
 				<div className="flex space-x-1 justify-center items-center">
-					<h1 className="font-poppins text-xl text-white font-semibold">{title}</h1>
+					<h1 className="font-poppins text-3xl text-white font-semibold">{title}</h1>
 					{verified &&
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
 							<path d="M12.5698 22.5801H11.5048L8.99984 20.0001H5.29484L4.49984 19.2501V15.6201L1.96484 13.0401V11.9751L4.49984 9.39506V5.75006L5.29484 5.00006H8.99984L11.5048 2.43506H12.5698L15.1498 5.00006H18.7948L19.5448 5.73506V9.39506L22.1098 11.9751V13.0401L19.4998 15.6201V19.2501L18.7498 20.0001H15.1498L12.5698 22.5801ZM10.0948 16.2201H11.1598L16.8148 10.5651L15.7498 9.50006L10.6348 14.6301L8.56484 12.5601L7.49984 13.6251L10.0948 16.2201Z" fill="#59AFFF"/>
@@ -38,11 +38,9 @@ const Project: FC<Props> = ({ title, description, verified, status, raised }) =>
 						</svg>
 					}
 				</div>
-				<p className="text-white font-poppins font-light text-sm">
+				<p className="text-white font-poppins font-light text-md leading-7">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. eiusmod tempor incididunt ut labore et.
-				</p>
-				<Button gradient={true}>Fund It</Button>
-				
+				</p>			
 			</div>
 		</div>
 	)
