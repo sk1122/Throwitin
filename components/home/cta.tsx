@@ -6,8 +6,8 @@ interface Props {
 
 const Cta = (props: Props) => {
     return (
-        <div className="bg-black w-full h-screen flex items-center justify-center">
-            <div className="flex justify-around items-center w-11/12 h-3/5 bg-green-100 bg-gradient-to-r from-purple-600 via-black to-pink-400 text-white rounded-lg">
+        <div className="bg-black w-full h-fit py-40 flex items-center justify-center">
+            <div className="flex justify-around items-center w-full mx-16 h-fit py-20 bg-green-100 bg-gradient-to-r from-purple-600 via-black to-pink-400 text-white rounded-lg">
                 <div className="w-full h-full text-5xl font-bold flex items-center justify-center">
                     Be the first to know about <br/> the new listed projects
                 </div>
