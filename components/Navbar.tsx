@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <nav className="flex justify-between w-full bg-brand-dark text-white px-16 py-6 items-center">
+    <nav className="flex justify-between w-full bg-black text-white px-16 py-6 items-center">
       <div className="text-2xl font-bold">throwitin</div>
       <div className="">
         <ul className="flex space-x-5 ml-48">
@@ -16,7 +16,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex space-x-4">
-        <button className="bg-gray-100 py-2 px-4 rounded text-black flex">
+        <button className="bg-gray-100 py-2 px-4 rounded text-black flex text-sm items-center">
           <span className="pr-1">
             <svg
               className="w-6 h-6"
@@ -28,7 +28,7 @@ const Navbar = () => {
           </span>
           Dashboard
         </button>
-        <button className="flex py-2 px-4 bg-gradient-to-r from-brand-lightblue via-brand-semipurple to-brand-lightpink py-1 px-3 rounded">
+        <button className="flex py-2 px-4 bg-gradient-to-r from-brand-lightblue via-brand-semipurple to-brand-lightpink text-sm items-center rounded">
           <span className="pr-1">
             <svg
               className="w-6 h-6"

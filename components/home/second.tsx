@@ -4,7 +4,7 @@ interface Props {}
 
 const Second = (props: Props) => {
   return (
-    <div className="w-full h-screen flex flex-col items-center bg-brand-dark px-16 text-white justify-center">
+    <div className="w-full h-screen flex flex-col items-center bg-black px-16 text-white justify-center">
       {/* part #1 */}
       <div className="w-full flex justify-between mb-20">
         <span className="text-3xl font-bold text-transparent md:text-5xl bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-fuchsia-500">
