@@ -2,6 +2,7 @@ import Head from "next/head";
 import First from "../components/home/first";
 import Navbar from "../components/Navbar";
 import Second from "../components/home/second";
+import Third from '../components/home/third'
 import Fourth from '../components/home/fourth'
 import Fifth from "../components/home/fifth";
 import Cta from "../components/home/cta";
@@ -20,6 +21,7 @@ export default function Home() {
       <Navbar />
       <First />
       <Second />
+      <Third />
       <Fourth />
       <Fifth />
       <Cta />
