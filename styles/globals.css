@@ -26,7 +26,7 @@
 
 .bigcard {
 	background: rgb(255,255,255);
-	background: linear-gradient(124deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.45) 40%, rgba(255,255,255,0.25) 70%, rgba(255,255,255,0.2413340336134454) 100%);
+	background: linear-gradient(124deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.45) 40%, rgba(255,255,255,0.25) 70%, rgba(255,255,255,0.2413340336134454) 100%);
 }
 
 @layer utilities {
