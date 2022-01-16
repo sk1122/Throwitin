@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import Second from "../components/home/second";
 import Fourth from '../components/home/fourth'
 import Fifth from "../components/home/fifth";
+import Cta from "../components/home/cta";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -18,8 +20,10 @@ export default function Home() {
       <Navbar />
       <First />
       <Second />
-      <Fourth></Fourth>
-      <Fifth></Fifth>
+      <Fourth />
+      <Fifth />
+      <Cta />
+      <Footer />
     </div>
   );
 }
