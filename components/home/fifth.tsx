@@ -1,8 +1,8 @@
-import { useRef, useState, useEffect, Ref } from "react";
+import { useRef, useState, useEffect, MutableRefObject } from "react";
 import Project from "../project";
 
 const Fifth = () => {
-	const slider: Ref<HTMLHeadingElement> = useRef<HTMLHeadingElement>(null);
+	const slider = useRef() as MutableRefObject<HTMLDivElement>;
 
 	const handleOnNextClick = () => {
 		slider.current.scrollLeft += 280
