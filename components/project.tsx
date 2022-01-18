@@ -12,9 +12,9 @@ type Props = {
 
 const Project: FC<Props> = ({ title, description, verified, status, raised }) => {
 	return (
-		<div className="w-96 h-152 bg-brand-cardblue flex flex-col">
-			<div className="relative w-96 h-1/2">
-				<Image src="https://images.unsplash.com/photo-1642146389720-2561f65902c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=397&q=80" alt="" layout="fill" />
+		<div className="w-96 h-152 bg-brand-cardblue flex flex-col rounded-2xl">
+			<div className="relative w-96 h-1/2 rounded-2xl">
+				<Image src="https://images.unsplash.com/photo-1642146389720-2561f65902c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=397&q=80" alt="" layout="fill" className="rounded-2xl" />
 			</div>
 			<div className="w-full h-1/2 flex flex-col justify-start items-start px-6 py-2 space-y-5">
 				<div className="text-green-400 flex justify-center items-center space-x-1 mt-3">

@@ -4,7 +4,7 @@ interface Props {
 
 const Footer = (props: Props) => {
     return (
-        <div className="w-full h-fit bg-black text-white px-16 py-20 pb-36">
+        <div className="font-poppins w-full h-fit bg-black text-white px-16 py-20 pb-36">
             <div className="flex justify-around">
                 {/* left side */}
                 <div className="flex flex-col w-full">
