@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import Bar from '../components/projects/bar'
 import Navbar from "../components/Navbar"
 import Project from '../components/project'
@@ -6,6 +8,9 @@ import Footer from '../components/Footer'
 import Head from "next/head"
 
 const Projects = () => {
+
+	const [projects, setProjects] = useState([])
+
 	return (
 		<div className="font-clash w-full min-h-screen bg-brand-dark">
 			<Head>
@@ -16,7 +21,7 @@ const Projects = () => {
 			</Head>
 			<Navbar></Navbar>
 			<Bar></Bar>
-			<div className="flex justify-start items-center w-full h-20 space-x-5 px-16 text-white">
+			<div className="flex flex-col md:flex-row justify-start items-center w-full h-20 space-x-5 px-16 text-white">
 				<div className="w-40 h-10 rounded-md flex justify-center items-center space-x-1 border border-white">
 					<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -36,23 +41,36 @@ const Projects = () => {
 					<h2>Verified</h2>
 				</div>
 			</div>
-			<div className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 px-16 pb-16 pt-5 gap-5">
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-				<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-			</div>
-			<div className="w-full flex justify-center items-center pt-5 pb-16">
-				<Button gradient={true}>Load More</Button>
-			</div>
+			
+			{projects.length === 0 && 
+				<div className='w-full h-96 flex justify-start items-center px-16'>
+					<div className="text-white w-full bg-white/10 h-full flex justify-center items-center rounded-xl">
+						<h1 className='font-clash text-4xl font-bold'>no projects to show!</h1>
+					</div>
+				</div>
+			}
+			
+			{projects.length !== 0 && 
+				<div>
+					<div className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 px-16 pb-16 pt-5 gap-5">
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+					</div>
+					<div className="w-full flex justify-center items-center pt-5 pb-16">
+						<Button gradient={true}>Load More</Button>
+					</div>
+				</div>
+			}
 			<Footer></Footer>
 		</div>
 	)

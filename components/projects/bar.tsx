@@ -1,6 +1,6 @@
 const Bar = () => {
 	return (
-		<div className="w-full h-36 text-white flex justify-center items-center">
+		<div className="w-full h-36 text-white flex flex-col md:flex-row justify-center items-center">
 			<div className="w-1/2 h-full flex justify-start items-center px-16">
 				<h1 className="font-bold text-4xl">Explore all Projects</h1>
 			</div>
