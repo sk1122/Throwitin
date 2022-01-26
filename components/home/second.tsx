@@ -1,8 +1,21 @@
-import SmallCard from "../SmallCard";
+import { useState } from "react";
+import Investor from "./investor";
+import Owner from "./owner";
 
-interface Props {}
+type Props = {};
 
 const Second = (props: Props) => {
+  const [componentToLoad, setComponentToLoad] = useState(false);
+
+  const handleClick = (isTrue: boolean) => {
+    console.log(isTrue);
+    if (isTrue === componentToLoad) {
+      setComponentToLoad(isTrue);
+    } else {
+      setComponentToLoad(!componentToLoad);
+    }
+  };
+
   return (
     <div className="w-full h-screen flex flex-col items-center bg-black px-16 text-white justify-center">
       {/* part #1 */}
@@ -10,40 +23,22 @@ const Second = (props: Props) => {
         <span className="text-3xl font-bold text-transparent md:text-5xl bg-clip-text bg-gradient-to-r from-brand-lightblue via-brand-purple to-brand-semipink">
           What we have for project owners?
         </span>
-        <button className="bg-gray-100 text-black px-1 py-1 rounded-xl">
-          <span className="bg-gray-900 py-2 rounded-xl text-white px-3">
-            Project Owners
-          </span>
-          <span className="px-2">Investors</span>
-        </button>
-      </div>
-      {/* part #2  */}
-      <div className="w-full flex justify-center items-center">
-        <div className="flex flex-col w-1/2">
-          <span className="text-3xl font-bold mb-8">Why invest with us?</span>
-          <p className="text-lg max-w-xl mb-12">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione id
-            est molestias porro dolores eos architecto omnis nostrum iusto
-            exercitationem suscipit, numquam soluta quisquam! Qui quod nam,
-            totam molestias soluta maiores quae odit, veritatis aperiam
-            adipisci, ullam sit architecto quibusdam dicta deserunt. Obcaecati
-            cupiditate aliquam voluptate harum accusantium inventore eveniet!
-          </p>
-          <button className="bg-gray-100 py-2 px-4 rounded-md text-black max-w-fit">
-            Why invest with us?
+        <div className="bg-gray-100 text-black px-1 py-1 rounded-xl flex items-center">
+          <button
+            className="bg-gray-900 py-2 rounded-xl text-white px-3 cursor-pointer"
+            onClick={() => handleClick(true)}>
+            Investors
+          </button>
+          <button
+            className="px-2 cursor-pointer"
+            onClick={() => handleClick(false)}>
+            Owners
           </button>
         </div>
-        <div className="w-1/2 h-full flex items-center justify-center px-20 ">
-          <div className="w-full h-full relative">
-            <div className="absolute top-0 left-36">
-              <SmallCard title="Total Amount Raised" />
-            </div>
-            <div className="absolute top-36 left-80">
-              <SmallCard title="Total Projects Funded" />
-            </div>
-          </div>
-        </div>
       </div>
+      {/* part #2  */}
+      {componentToLoad && <Investor />}
+      {!componentToLoad && <Owner />}
     </div>
   );
 };
