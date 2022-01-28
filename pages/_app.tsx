@@ -12,6 +12,7 @@ declare global {
 function MyApp({ Component, pageProps }: AppProps) {
   const [account, setAccount] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [chain, setChain] = useState(0)
 
   const checkWalletIsConnected = async () => {
     try {
@@ -60,6 +61,34 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   };
 
+  const changeNetwork = async () => {
+    try {
+      const { ethereum } = window
+
+      if(ethereum) {
+        await ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: '0x13881' }]
+        })
+      } else {
+        console.log("Ethereum not found!")
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  // Check Ethereum Network & Switch
+  useEffect(() => {
+    const { ethereum } = window
+
+    if(ethereum) {
+      ethereum.on('chainChanged', () => {
+        setChain(ethereum.networkVersion)
+      })
+    }
+  }, [])
+
   useEffect(() => {
     checkWalletIsConnected()
   }, [])
@@ -70,7 +99,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     isAuthenticated,
     setIsAuthenticated,
     checkWalletIsConnected,
-    login
+    login,
+    chain,
+    changeNetwork
   }
   
   return (
