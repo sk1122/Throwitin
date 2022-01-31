@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useAccountContext } from "../pages/_context";
 import Button from "./button";
 
@@ -6,18 +7,38 @@ const Navbar = () => {
     useAccountContext();
 
   return (
-    <nav className="flex font-poppins justify-between w-full bg-black text-white px-16 py-6 items-center">
-      <div className="text-2xl font-bold">throwitin</div>
+    <nav className="flex font-poppins justify-between w-full bg-brand-dark text-white px-16 py-6 items-center">
+      <Link href="/">
+        <a className="text-2xl font-bold">throwitin</a>
+      </Link>
       <div className="">
         <ul className="flex space-x-5 ml-48">
           {[
-            "Start Project",
-            "Fund Project",
-            "Leaderboard",
-            "About us",
-            "Contact us",
+            {
+              name: "Start Project",
+              link: "/startProject",
+            },
+            {
+              name: "Fund Project",
+              link: "/startProject",
+            },
+            {
+              name: "Leaderboard",
+              link: "/startProject",
+            },
+            {
+              name: "About us",
+              link: "/startProject",
+            },
+            {
+              name: "Contact us",
+              link: "/startProject",
+            },
           ].map((item) => (
-            <li className="text-sm px-2 py-1 cursor-pointer">{item}</li>
+            <Link href={item.link}>
+              <a className="text-sm px-2 py-1 cursor-pointer">{item.name}</a>
+            </Link>
+            // <li className="text-sm px-2 py-1 cursor-pointer">{item}</li>
           ))}
         </ul>
       </div>
