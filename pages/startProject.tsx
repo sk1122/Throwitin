@@ -5,7 +5,6 @@ import {
   Finance,
   BasicInfo,
   Governance,
-  Story,
   Faq,
   People,
 } from "../components/startProject";
