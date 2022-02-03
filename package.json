@@ -6,6 +6,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tiptap/extension-heading": "^2.0.0-beta.26",
+    "@tiptap/extension-image": "^2.0.0-beta.25",
+    "@tiptap/react": "^2.0.0-beta.107",
+    "@tiptap/starter-kit": "^2.0.0-beta.180",
     "ethers": "^5.5.4",
     "next": "latest",
     "react": "^17.0.2",
