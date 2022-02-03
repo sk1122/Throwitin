@@ -5,7 +5,7 @@ const FAQ: FC = () => {
 
 	return (
 		<>
-			<div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer w-full h-28 bg-white text-black flex justify-center items-center">
+			<div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer w-full h-28 bg-white text-black flex justify-center items-center rounded-xl">
 				<div className="w-full h-full flex justify-between">
 					<div className="px-10 flex justify-center items-center">
 						<h1 className="text-2xl font-bold">New to Throwitin?</h1>
