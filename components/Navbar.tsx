@@ -20,25 +20,20 @@ const Navbar = () => {
             },
             {
               name: "Fund Project",
-              link: "/startProject",
+              link: "/",
             },
             {
               name: "Leaderboard",
-              link: "/startProject",
+              link: "/",
             },
             {
-              name: "About us",
-              link: "/startProject",
-            },
-            {
-              name: "Contact us",
-              link: "/startProject",
+              name: "About",
+              link: "/about",
             },
           ].map((item) => (
             <Link href={item.link}>
               <a className="text-sm px-2 py-1 cursor-pointer">{item.name}</a>
             </Link>
-            // <li className="text-sm px-2 py-1 cursor-pointer">{item}</li>
           ))}
         </ul>
       </div>

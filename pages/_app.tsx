@@ -1,19 +1,19 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { AppContext } from './_context'
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { AppContext } from "./_context";
+import { useEffect, useState } from "react";
+import Head from "next/head";
 
 declare global {
   interface Window {
-    ethereum: any
+    ethereum: any;
   }
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [account, setAccount] = useState('')
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [chain, setChain] = useState(0)
+  const [account, setAccount] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [chain, setChain] = useState(0);
 
   const checkWalletIsConnected = async () => {
     try {
@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         if (accounts.length !== 0) {
           setAccount(accounts[0]);
           setIsAuthenticated(true);
-          console.log('Found')
+          console.log("Found");
         } else {
           console.log("Not Found");
         }
@@ -64,35 +64,35 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const changeNetwork = async () => {
     try {
-      const { ethereum } = window
+      const { ethereum } = window;
 
-      if(ethereum) {
+      if (ethereum) {
         await ethereum.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: '0x13881' }]
-        })
+          params: [{ chainId: "0x13881" }],
+        });
       } else {
-        console.log("Ethereum not found!")
+        console.log("Ethereum not found!");
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   // Check Ethereum Network & Switch
   useEffect(() => {
-    const { ethereum } = window
+    const { ethereum } = window;
 
-    if(ethereum) {
-      ethereum.on('chainChanged', () => {
-        setChain(ethereum.networkVersion)
-      })
+    if (ethereum) {
+      ethereum.on("chainChanged", () => {
+        setChain(ethereum.networkVersion);
+      });
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    checkWalletIsConnected()
-  }, [])
+    checkWalletIsConnected();
+  }, []);
 
   let sharedState = {
     account,
@@ -102,21 +102,26 @@ function MyApp({ Component, pageProps }: AppProps) {
     checkWalletIsConnected,
     login,
     chain,
-    changeNetwork
-  }
-  
+    changeNetwork,
+  };
+
   return (
     <AppContext.Provider value={sharedState}>
       <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=""/>
-				<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-        <link href="http://fonts.cdnfonts.com/css/clash-display" rel="stylesheet" />
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossOrigin="anonymous"/>
+        <link
+          href="http://fonts.cdnfonts.com/css/clash-display"
+          rel="stylesheet"
+        />
+        <link
+          rel="stylesheet"
+          href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+          crossOrigin="anonymous"
+        />
       </Head>
       <Component {...pageProps} />
     </AppContext.Provider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

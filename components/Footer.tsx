@@ -3,7 +3,7 @@ interface Props {}
 const Footer = (props: Props) => {
   return (
     <div className="font-poppins w-full h-fit bg-brand-dark text-white px-16 py-20 pb-36">
-      <div className="flex justify-around">
+      <div className="flex justify-around border-t-2 border-gray-700 pt-20">
         {/* left side */}
         <div className="flex flex-col w-full">
           <h1 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-lightblue via-brand-purple to-brand-semipink">
