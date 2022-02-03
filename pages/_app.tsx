@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { AppContext } from './_context'
 import { useEffect, useState } from 'react'
+import Head from 'next/head'
 
 declare global {
   interface Window {
@@ -106,6 +107,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   
   return (
     <AppContext.Provider value={sharedState}>
+      <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=""/>
+				<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+        <link href="http://fonts.cdnfonts.com/css/clash-display" rel="stylesheet" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossOrigin="anonymous"/>
+      </Head>
       <Component {...pageProps} />
     </AppContext.Provider>
   )
