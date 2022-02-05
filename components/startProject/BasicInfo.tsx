@@ -203,9 +203,9 @@ const BasicInfo = (props: Props) => {
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg">
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                    clip-rule="evenodd"></path>
+                    clipRule="evenodd"></path>
                 </svg>
               </div>
             </div>
@@ -220,7 +220,9 @@ const BasicInfo = (props: Props) => {
                 id=""
                 className="bg-brand-dark border-2 rounded py-3 px-2 select-none">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((hour) => (
-                  <option value={hour}>{hour}</option>
+                  <option key={hour} value={hour}>
+                    {hour}
+                  </option>
                 ))}
               </select>
               <select
@@ -232,7 +234,9 @@ const BasicInfo = (props: Props) => {
                   19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
                   34, 35, 36, 37, 38, 39, 40,
                 ].map((minute) => (
-                  <option value={minute}>{minute}</option>
+                  <option key={minute} value={minute}>
+                    {minute}
+                  </option>
                 ))}
               </select>
               <select
@@ -240,19 +244,15 @@ const BasicInfo = (props: Props) => {
                 id=""
                 className="bg-brand-dark border-2 rounded py-3 px-2 select-none">
                 {["AM", "PM"].map((daytime) => (
-                  <option value={daytime}>{daytime}</option>
+                  <option key={daytime.toLowerCase()} value={daytime}>
+                    {daytime}
+                  </option>
                 ))}
               </select>
               <div className="text-xl font-semibold">IST</div>
             </div>
           </div>
         </div>
-      </div>
-      {/* next page button */}
-      <div className="w-full flex justify-end">
-        <button className="bg-white px-6 py-2 text-black font-semibold rounded cursor-pointer">
-          Next: Finance
-        </button>
       </div>
     </>
   );
