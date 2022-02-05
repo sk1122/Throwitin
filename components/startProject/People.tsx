@@ -89,14 +89,6 @@ const People = (props: Props) => {
           Add team Member +
         </button>
       </div>
-
-      {/* bottom navigation */}
-      <div className="flex justify-between items-center w-full">
-        <div className="cursor-pointer select-none">Back: FAQ</div>
-        <button className="bg-white px-6 py-2 text-brand-dark font-semibold rounded cursor-pointer">
-          Submit for review
-        </button>
-      </div>
     </>
   );
 };

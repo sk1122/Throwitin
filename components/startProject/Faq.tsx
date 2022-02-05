@@ -46,14 +46,6 @@ const Faq = (props: Props) => {
           </button>
         </div>
       </div>
-
-      {/* bottom navigation */}
-      <div className="flex justify-between items-center w-full">
-        <div className="cursor-pointer select-none">Back: Story</div>
-        <button className="bg-white px-6 py-2 text-brand-dark font-semibold rounded cursor-pointer">
-          Next: People
-        </button>
-      </div>
     </>
   );
 };
