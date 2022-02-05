@@ -1,8 +1,10 @@
 import { useState } from "react";
 
-type Props = {};
+type Props = {
+  register;
+};
 
-const Faq = (props: Props) => {
+const Faq = ({ register }: Props) => {
   const [faq, setFaq] = useState([
     {
       question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit ?",

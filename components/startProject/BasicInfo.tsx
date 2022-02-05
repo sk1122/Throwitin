@@ -1,4 +1,6 @@
-type Props = {};
+type Props = {
+  register;
+};
 
 const classes = {
   commonLabel: "font-semibold mb-3",
@@ -7,7 +9,7 @@ const classes = {
   sectionDescription: "text-sm w-7/12",
 };
 
-const BasicInfo = (props: Props) => {
+const BasicInfo = ({ register }: Props) => {
   return (
     <>
       <div className="flex w-full mb-16">
@@ -27,11 +29,19 @@ const BasicInfo = (props: Props) => {
           <label htmlFor="" className={`${classes.commonLabel}`}>
             Title
           </label>
-          <input type="text" className={`${classes.commonInput}`} />
+          <input
+            type="text"
+            className={`${classes.commonInput}`}
+            {...register("title")}
+          />
           <label htmlFor="" className={`${classes.commonLabel}`}>
             Subtitle
           </label>
-          <input type="text" className={`${classes.commonInput}`} />
+          <input
+            type="text"
+            className={`${classes.commonInput}`}
+            {...register("subtitle")}
+          />
         </div>
       </div>
       <div className="w-full flex mb-16">
@@ -51,8 +61,14 @@ const BasicInfo = (props: Props) => {
           <label htmlFor="" className={`${classes.commonLabel}`}>
             Category
           </label>
-          <select name="" id="" className={`${classes.commonInput}`}>
+          <select
+            name=""
+            id=""
+            className={`${classes.commonInput}`}
+            {...register("category")}>
             <option value=""></option>
+            <option value="test">Test</option>
+            <option value="test2">Test 2</option>
           </select>
         </div>
       </div>
@@ -79,6 +95,8 @@ const BasicInfo = (props: Props) => {
             <input
               className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
               type="file"
+              name="profile_image"
+              {...register("profile_image")}
               // onchange={() => {}}
               accept="image/*"
             />
@@ -111,6 +129,7 @@ const BasicInfo = (props: Props) => {
             <input
               className="absolute m-0 p-0 w-full h-full outline-none opacity-0"
               type="file"
+              {...register("images")}
               // onchange={() => {}}
               accept="image/*"
               multiple
@@ -139,25 +158,41 @@ const BasicInfo = (props: Props) => {
             <label htmlFor="website_url" className={`${classes.commonLabel}`}>
               Website URL
             </label>
-            <input type="text" className={`${classes.commonInput}`} />
+            <input
+              type="text"
+              className={`${classes.commonInput}`}
+              {...register("website_url")}
+            />
           </div>
           <div className="flex flex-col mb-3">
             <label htmlFor="video_link" className={`${classes.commonLabel}`}>
               Video link
             </label>
-            <input type="text" className={`${classes.commonInput}`} />
+            <input
+              type="text"
+              className={`${classes.commonInput}`}
+              {...register("video_link")}
+            />
           </div>
           <div className="flex flex-col mb-3">
             <label htmlFor="twitter" className={`${classes.commonLabel}`}>
               Twitter
             </label>
-            <input type="text" className={`${classes.commonInput}`} />
+            <input
+              type="text"
+              className={`${classes.commonInput}`}
+              {...register("creators_twitter")}
+            />
           </div>
           <div className="flex flex-col mb-3">
             <label htmlFor="discord" className={`${classes.commonLabel}`}>
               Discord
             </label>
-            <input type="text" className={`${classes.commonInput}`} />
+            <input
+              type="text"
+              className={`${classes.commonInput}`}
+              {...register("discord")}
+            />
           </div>
         </div>
       </div>
@@ -193,6 +228,7 @@ const BasicInfo = (props: Props) => {
               <input
                 className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
                 type="date"
+                {...register("date")}
                 // onchange={() => {}}
                 value=""
               />
@@ -208,48 +244,6 @@ const BasicInfo = (props: Props) => {
                     clipRule="evenodd"></path>
                 </svg>
               </div>
-            </div>
-          </div>
-          {/* time */}
-          <div className="flex flex-col">
-            <div className={`${classes.commonLabel}`}>Time</div>
-            {/* hour */}
-            <div className="flex space-x-4 items-center">
-              <select
-                name="hours"
-                id=""
-                className="bg-brand-dark border-2 rounded py-3 px-2 select-none">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((hour) => (
-                  <option key={hour} value={hour}>
-                    {hour}
-                  </option>
-                ))}
-              </select>
-              <select
-                name="minutes"
-                id=""
-                className="bg-brand-dark border-2 rounded py-3 px-2 select-none">
-                {[
-                  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-                  19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
-                  34, 35, 36, 37, 38, 39, 40,
-                ].map((minute) => (
-                  <option key={minute} value={minute}>
-                    {minute}
-                  </option>
-                ))}
-              </select>
-              <select
-                name="hours"
-                id=""
-                className="bg-brand-dark border-2 rounded py-3 px-2 select-none">
-                {["AM", "PM"].map((daytime) => (
-                  <option key={daytime.toLowerCase()} value={daytime}>
-                    {daytime}
-                  </option>
-                ))}
-              </select>
-              <div className="text-xl font-semibold">IST</div>
             </div>
           </div>
         </div>

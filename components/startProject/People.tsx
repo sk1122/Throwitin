@@ -1,13 +1,15 @@
 import React from "react";
 
-type Props = {};
+type Props = {
+  register;
+};
 
 const commonClasses = {
   commonLabel: "font-semibold mb-3",
   commonInput: "bg-transparent border border-white py-2 px-2 mb-4 rounded",
 };
 
-const People = (props: Props) => {
+const People = ({ register }: Props) => {
   return (
     <>
       {/* section 1 */}
@@ -30,14 +32,25 @@ const People = (props: Props) => {
           <label htmlFor="name" className={`${commonClasses.commonLabel}`}>
             Name
           </label>
-          <input type="text" className={`${commonClasses.commonInput}`} />
+          <input
+            type="text"
+            className={`${commonClasses.commonInput}`}
+            {...register("creators_name")}
+          />
           {/* twitter */}
           <label htmlFor="twitter" className={`${commonClasses.commonLabel}`}>
             Twitter
           </label>
-          <input type="text" className={`${commonClasses.commonInput}`} />
+          <input
+            type="text"
+            className={`${commonClasses.commonInput}`}
+            {...register("creators_twitter")}
+          />
           {/* LinkedIn */}
-          <label htmlFor="linkedin" className={`${commonClasses.commonLabel}`}>
+          <label
+            htmlFor="linkedin"
+            className={`${commonClasses.commonLabel}`}
+            {...register("creators_linkedIn")}>
             LinkedIn
           </label>
           <input type="text" className={`${commonClasses.commonInput}`} />
@@ -61,7 +74,11 @@ const People = (props: Props) => {
             className={`${commonClasses.commonLabel}`}>
             Name
           </label>
-          <input type="text" className={`${commonClasses.commonInput}`} />
+          <input
+            type="text"
+            className={`${commonClasses.commonInput}`}
+            {...register("team_members_name")}
+          />
           <div className="flex space-x-8 justify-center items-center">
             <div className="flex flex-col w-full">
               <label
@@ -69,7 +86,11 @@ const People = (props: Props) => {
                 className={`${commonClasses.commonLabel}`}>
                 Twitter
               </label>
-              <input type="text" className={`${commonClasses.commonInput}`} />
+              <input
+                type="text"
+                className={`${commonClasses.commonInput}`}
+                {...register("teams_member_twitter")}
+              />
             </div>
             <div className="flex flex-col w-full">
               <label
@@ -77,7 +98,11 @@ const People = (props: Props) => {
                 className={`${commonClasses.commonLabel}`}>
                 LinkedIn
               </label>
-              <input type="text" className={`${commonClasses.commonInput}`} />
+              <input
+                type="text"
+                className={`${commonClasses.commonInput}`}
+                {...register("teams_member_linkedIn")}
+              />
             </div>
           </div>
         </div>

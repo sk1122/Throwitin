@@ -1,9 +1,11 @@
 import React from "react";
 import Editor from "../Editor";
 
-type Props = {};
+type Props = {
+  register;
+};
 
-const Finance = (props: Props) => {
+const Finance = ({ register }: Props) => {
   return (
     <>
       <div className="w-full flex flex-col mb-16">
