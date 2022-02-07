@@ -228,7 +228,7 @@ const BasicInfo = ({ register }: Props) => {
               <input
                 className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
                 type="date"
-                {...register("date")}
+                {...register("date", { valueAsDate: true })}
                 // onchange={() => {}}
                 value=""
               />
