@@ -2,7 +2,7 @@ import Button from "../button";
 
 export default function First() {
   return (
-    <div className="w-full h-screen grid grid-cols-2">
+    <div className="relative w-full h-screen grid grid-cols-2">
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <svg width="389" height="389" viewBox="0 0 389 389" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M389 194.5C389 301.919 301.919 389 194.5 389C87.0806 389 0 301.919 0 194.5C0 87.0806 87.0806 0 194.5 0C301.919 0 389 87.0806 389 194.5Z" fill="black"/>
