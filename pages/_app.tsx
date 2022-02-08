@@ -3,9 +3,9 @@ import type { AppProps } from "next/app";
 import { AppContext } from "./_context";
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import abi from './interface/contract.json'
+import abi from '../interface/contract.json'
 import { ethers } from "ethers";
-import { Project } from "./types/project";
+import { Project } from "../types/project";
 import { ThirdwebProvider } from "@3rdweb/react";
 
 declare global {
