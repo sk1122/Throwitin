@@ -7,6 +7,7 @@ import abi from '../interface/contract.json'
 import { ethers } from "ethers";
 import { Project } from "../types/project";
 import { ThirdwebProvider } from "@3rdweb/react";
+import { useWeb3 } from "@3rdweb/hooks";
 
 declare global {
   interface Window {
@@ -17,6 +18,8 @@ declare global {
 const CONTRACT_ADDRESS = '0x41C9C4e683Bf46e7fcDB06a5F0f2b29938a90Fb5'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { address } = useWeb3()
+  
   const [account, setAccount] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [chain, setChain] = useState(0);
@@ -135,8 +138,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const usersContributions = async (projectId: number) => {
     try {
       connectContract()
-      if(account) {
-        const contributions = await contract.myContributions(projectId, account)
+      if(address) {
+        const contributions = await contract.myContributions(projectId, address)
         return contributions
       } else {
         console.log("throwitin: you are logged in")
