@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 type Props = {
-  register;
+  register: any;
 };
 
 const Faq = ({ register }: Props) => {

@@ -2,7 +2,7 @@ import React from "react";
 import Editor from "../Editor";
 
 type Props = {
-  register;
+  register: any;
 };
 
 const Finance = ({ register }: Props) => {

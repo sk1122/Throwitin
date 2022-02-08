@@ -1,7 +1,7 @@
 import React from "react";
 
 type Props = {
-  register;
+  register: any;
 };
 
 const Governance = ({ register }: Props) => {

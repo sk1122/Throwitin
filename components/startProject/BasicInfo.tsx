@@ -1,5 +1,5 @@
 type Props = {
-  register;
+  register: any;
 };
 
 const classes = {
