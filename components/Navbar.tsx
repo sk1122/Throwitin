@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { useAccountContext } from "../pages/_context";
 import Button from "./button";
+import { ConnectWallet } from "@3rdweb/react";
+import { useSwitchNetwork, useWeb3 } from "@3rdweb/hooks";
 
 const Navbar = () => {
-  const { account, isAuthenticated, login, chain, changeNetwork } =
-    useAccountContext();
+  const { address, chainId } = useWeb3()
+  const { switchNetwork } = useSwitchNetwork()
 
   return (
     <nav className="flex font-poppins justify-between w-full bg-brand-dark text-white px-16 py-6 items-center">
@@ -38,7 +40,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex space-x-4">
-        {chain != 80001 && (
+        {address && (
           <button className="bg-gray-100 py-2 px-4 rounded text-black flex text-sm items-center">
             <span className="mr-2">
               <svg
@@ -56,9 +58,9 @@ const Navbar = () => {
             Dashboard
           </button>
         )}
-        {chain == 80001 && (
-          <button
-            onClick={() => changeNetwork()}
+        {chainId !== 80001 && 
+           <button
+            onClick={() => switchNetwork(80001)}
             className="bg-gray-100 py-2 px-4 rounded text-black flex text-sm items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -73,31 +75,10 @@ const Navbar = () => {
             </svg>
             Switch to Polygon
           </button>
-        )}
-        {!isAuthenticated && (
-          <div onClick={() => login()}>
-            <Button gradient={true}>Connect Wallet</Button>
-          </div>
-        )}
-        {isAuthenticated && (
-          <div>
-            <Button gradient={true}>
-              <span className="pr-1">
-                <svg
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    fillRule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clipRule="evenodd"></path>
-                </svg>
-              </span>
-              Connected
-            </Button>
-          </div>
-        )}
+        }
+        <div className="text-xs">
+            <ConnectWallet />
+        </div>
       </div>
     </nav>
   );

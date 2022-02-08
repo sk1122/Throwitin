@@ -6,19 +6,23 @@
     "start": "next start"
   },
   "dependencies": {
+    "@3rdweb/hooks": "latest",
+    "@3rdweb/react": "latest",
     "@tiptap/extension-heading": "^2.0.0-beta.26",
     "@tiptap/extension-image": "^2.0.0-beta.25",
     "@tiptap/react": "^2.0.0-beta.107",
     "@tiptap/starter-kit": "^2.0.0-beta.180",
+    "chart.js": "^3.7.0",
     "ethers": "^5.5.4",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.26.0"
+    "react-hook-form": "^7.26.0",
+    "react-chartjs-2": "^4.0.1"
   },
   "devDependencies": {
     "@types/node": "17.0.4",
-    "@types/react": "17.0.38",
+    "@types/react": "^17.0.39",
     "autoprefixer": "^10.4.0",
     "postcss": "^8.4.5",
     "tailwindcss": "^3.0.7",
