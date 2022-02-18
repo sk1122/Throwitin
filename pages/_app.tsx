@@ -6,31 +6,33 @@ import Head from "next/head";
 import abi from '../interface/contract.json'
 import { ethers } from "ethers";
 import { Project } from "../types/project";
-import { ThirdwebProvider } from "@3rdweb/react";
-import { useWeb3 } from "@3rdweb/hooks";
+import { Provider, chain, defaultChains, useContract } from 'wagmi'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
 
-declare global {
-  interface Window {
-    ethereum: any;
-  }
-}
+
+// declare global {
+//   interface Window {
+//     ethereum: any;
+//   }
+// }
 
 const CONTRACT_ADDRESS = '0x41C9C4e683Bf46e7fcDB06a5F0f2b29938a90Fb5'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { address } = useWeb3()
   
   const [account, setAccount] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [chain, setChain] = useState(0);
 
   var provider: any, contract: any, signer: any 
 
   const connectContract = async () => {
     try {
-      provider = new ethers.providers.Web3Provider(window.ethereum)
-      signer = provider.getSigner()
-      contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer)
+      contract = useContract({
+        addressOrName: CONTRACT_ADDRESS,
+        contractInterface: abi
+      })
     } catch(e) {
       console.log(e)
     }
@@ -138,8 +140,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const usersContributions = async (projectId: number) => {
     try {
       connectContract()
-      if(address) {
-        const contributions = await contract.myContributions(projectId, address)
+      if(account) {
+        const contributions = await contract.myContributions(projectId, account)
         return contributions
       } else {
         console.log("throwitin: you are logged in")
@@ -201,17 +203,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }
 
-  // Check Ethereum Network & Switch
-  useEffect(() => {
-    const { ethereum } = window;
-
-    if (ethereum) {
-      ethereum.on("chainChanged", () => {
-        setChain(ethereum.networkVersion);
-      });
-    }
-  }, []);
-
   useEffect(() => {
     checkWalletIsConnected();
   }, []);
@@ -223,42 +214,53 @@ function MyApp({ Component, pageProps }: AppProps) {
     setIsAuthenticated,
     checkWalletIsConnected,
     login,
-    chain,
     changeNetwork,
   };
 
-  const supportedChainIds = [80001];
+  const infuraId = process.env.INFURA_ID
 
-  const connectors = {
-    injected: {},
-    walletconnect: {},
-    walletlink: {
-      appName: "thirdweb - demo",
-      url: "https://thirdweb.com",
-      darkMode: false,
-    },
-  };
+  // Chains for connectors to support
+  const chains = [chain.polygonMainnet, chain.polygonTestnetMumbai]
+  
+  const connectors = ({ chainId }: any) => {
+    const rpcUrl = chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0]
+    return [
+      new InjectedConnector({
+        chains,
+        options: { shimDisconnect: true },
+      }),
+      new WalletConnectConnector({
+        options: {
+          infuraId,
+          qrcode: true,
+        },
+      }),
+      new WalletLinkConnector({
+        options: {
+          appName: 'My wagmi app',
+          jsonRpcUrl: `${rpcUrl}/${infuraId}`,
+        },
+      }),
+    ]
+  }
 
   return (
     <AppContext.Provider value={sharedState}>
-      <ThirdwebProvider 
-        connectors={connectors} 
-        supportedChainIds={supportedChainIds}
-      >
-      <Head>
-        <link
-          href="http://fonts.cdnfonts.com/css/clash-display"
-          rel="stylesheet"
-        />
-        <link
-          rel="stylesheet"
-          href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-          crossOrigin="anonymous"
-        />
-      </Head>
-      <Component {...pageProps} />
-      </ThirdwebProvider>
+      <Provider autoConnect connectors={connectors}>
+        <Head>
+          <link
+            href="http://fonts.cdnfonts.com/css/clash-display"
+            rel="stylesheet"
+          />
+          <link
+            rel="stylesheet"
+            href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+            integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+            crossOrigin="anonymous"
+          />
+        </Head>
+        <Component {...pageProps} />
+      </Provider>
     </AppContext.Provider>
   );
 }

@@ -1,12 +1,17 @@
 import Link from "next/link";
 import { useAccountContext } from "../pages/_context";
 import Button from "./button";
-import { ConnectWallet } from "@3rdweb/react";
-import { useSwitchNetwork, useWeb3 } from "@3rdweb/hooks";
+import { useConnect, useAccount } from 'wagmi'
+import { useState } from "react";
 
 const Navbar = () => {
-  const { address, chainId } = useWeb3()
-  const { switchNetwork } = useSwitchNetwork()
+  const [{ data: connectData, error: connectError }, connect] = useConnect()
+  const [{ data: accountData }, disconnect] = useAccount({
+    fetchEns: true,
+  })
+
+  const [isOpen, setIsOpen] = useState(false)
+  const [logoutModal, setLogoutModal] = useState(false)
 
   return (
     <nav className="flex font-poppins justify-between w-full bg-brand-dark text-white px-16 py-6 items-center">
@@ -40,7 +45,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex space-x-4">
-        {address && (
+        {accountData?.address && (
           <button className="bg-gray-100 py-2 px-4 rounded text-black flex text-sm items-center">
             <span className="mr-2">
               <svg
@@ -58,26 +63,65 @@ const Navbar = () => {
             Dashboard
           </button>
         )}
-        {chainId !== 80001 && 
-           <button
-            onClick={() => switchNetwork(80001)}
-            className="bg-gray-100 py-2 px-4 rounded text-black flex text-sm items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 mr-2"
-              viewBox="0 0 1024 1024"
-              fill="none">
-              <circle cx="512" cy="512" r="512" fill="#8247E5" />
-              <path
-                d="M681.469 402.456C669.189 395.312 653.224 395.312 639.716 402.456L543.928 457.228L478.842 492.949L383.055 547.721C370.774 554.865 354.81 554.865 341.301 547.721L265.162 504.856C252.882 497.712 244.286 484.614 244.286 470.325V385.786C244.286 371.498 251.654 358.4 265.162 351.256L340.073 309.581C352.353 302.437 368.318 302.437 381.827 309.581L456.737 351.256C469.018 358.4 477.614 371.498 477.614 385.786V440.558L542.7 403.646V348.874C542.7 334.586 535.332 321.488 521.824 314.344L383.055 235.758C370.774 228.614 354.81 228.614 341.301 235.758L200.076 314.344C186.567 321.488 179.199 334.586 179.199 348.874V507.237C179.199 521.525 186.567 534.623 200.076 541.767L341.301 620.353C353.582 627.498 369.546 627.498 383.055 620.353L478.842 566.772L543.928 529.86L639.716 476.279C651.996 469.135 667.961 469.135 681.469 476.279L756.38 517.953C768.66 525.098 777.257 538.195 777.257 552.484V637.023C777.257 651.312 769.888 664.409 756.38 671.553L681.469 714.419C669.189 721.563 653.224 721.563 639.716 714.419L564.805 672.744C552.525 665.6 543.928 652.502 543.928 638.214V583.442L478.842 620.353V675.125C478.842 689.414 486.21 702.512 499.719 709.656L640.944 788.242C653.224 795.386 669.189 795.386 682.697 788.242L823.922 709.656C836.203 702.512 844.799 689.414 844.799 675.125V516.763C844.799 502.474 837.431 489.377 823.922 482.232L681.469 402.456Z"
-                fill="white"
-              />
-            </svg>
-            Switch to Polygon
-          </button>
+        {!accountData?.address && 
+          <div>
+            <div onClick={() => setIsOpen(!isOpen)} className={(isOpen ? 'hidden ' : '') + "bg-white text-sm cursor-pointer text-black px-3 py-3 rounded-md font-semibold w-40 flex justify-center items-center"}>
+              Connect Wallet
+            </div>
+            {isOpen && 
+              <div className="bg-white text-sm cursor-pointer text-black px-3 py-3 rounded-md font-semibold w-40 flex justify-center items-center">
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24">
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="#000"
+                    stroke-width="4"></circle>
+                  <path
+                    className="opacity-75"
+                    fill="#000"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </div>
+            }
+          </div>
         }
-        <div className="text-xs">
-            <ConnectWallet />
+        {accountData?.address && 
+          <div className="space-y-5">
+            <div onClick={() => setLogoutModal(!logoutModal)} className="bg-white text-sm cursor-pointer text-black px-3 py-3 rounded-md font-semibold w-40 flex justify-center items-center">
+              {!accountData.ens ? <span className="w-20 truncate">{accountData.address}</span> : accountData.ens}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div onClick={disconnect} className={(logoutModal ? '' : 'hidden ') + ' absolute flex justify-center items-center w-40 z-50 bg-white text-black rounded-md p-3'}>
+              Logout
+            </div>
+          </div>
+        }
+      </div>
+      <div className={(isOpen ? '' : 'hidden') + " fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-xl w-1/3 h-1/2 flex flex-col justify-center items-center space-y-5 transition-opacity duration-1000 ease-out"}>
+        <button className="absolute top-5 right-5 text-black" onClick={() => setIsOpen(false)}>X</button>
+        <h2 className="text-black font-bold text-2xl">Connect Your Wallet</h2>
+        <div>
+          {connectData.connectors.map((connector) => (
+            <button
+              key={connector.id}
+              onClick={() => connect(connector)}
+              className="p-3 bg-black m-3 flex justify-center items-center space-x-3 w-64 rounded-xl"
+            >
+              {connector.name.toLowerCase() === 'metamask' && <img className="w-10" src="/MetaMask_Fox.svg" />}
+              {connector.name.toLowerCase() === 'walletconnect' && <img className="w-10" src="/walletconnect-circle-blue.svg" />}
+              {connector.name.toLowerCase() === 'coinbase wallet' && <img className="w-10" src="/coinbase.png" />}
+              <span>{connector.name}</span>
+              {!connector.ready && ' (unsupported)'}
+            </button>
+          ))}
         </div>
       </div>
     </nav>

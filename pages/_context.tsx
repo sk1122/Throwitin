@@ -8,7 +8,6 @@ export interface Context {
   setIsAuthenticated: Function;
   checkWalletIsConnected: Function;
   login: Function;
-  chain: number;
   changeNetwork: Function;
 }
 

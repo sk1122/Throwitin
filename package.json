@@ -6,8 +6,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@3rdweb/hooks": "latest",
-    "@3rdweb/react": "latest",
     "@tiptap/extension-heading": "^2.0.0-beta.26",
     "@tiptap/extension-image": "^2.0.0-beta.25",
     "@tiptap/react": "^2.0.0-beta.107",
@@ -17,7 +15,8 @@
     "next": "latest",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.0.1",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "wagmi": "^0.2.12"
   },
   "devDependencies": {
     "@types/node": "17.0.4",
