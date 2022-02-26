@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Bar from '../components/projects/bar'
 import Navbar from "../components/Navbar"
@@ -6,10 +6,20 @@ import Project from '../components/project'
 import Button from '../components/button'
 import Footer from '../components/Footer'
 import Head from "next/head"
+import { useAccountContext } from './_context'
+import { ethers } from 'ethers'
 
 const Projects = () => {
-
+	const { getAllProjects } = useAccountContext()
 	const [projects, setProjects] = useState([])
+
+	useEffect(() => {
+		(async () => {
+			const projects = await getAllProjects()
+			setProjects(projects)
+			console.log(projects)
+		})()
+	}, [])
 
 	return (
 		<div className="font-clash w-full min-h-screen bg-brand-dark">
@@ -53,18 +63,9 @@ const Projects = () => {
 			{projects.length !== 0 && 
 				<div>
 					<div className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 px-16 pb-16 pt-5 gap-5">
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
-						<Project title='Project Name' description='Yo' status='Yo' verified={false} raised='200'></Project>
+						{projects.map((value: any) => (
+							<Project title={value['title']} description='Yo' status={value['state'] === 0 ? 'Funding' : 'Failed'} link={`/project/${value['projectId']}`} verified={false} raised={value.currentBalance.toNumber()}></Project>
+						))}
 					</div>
 					<div className="w-full flex justify-center items-center pt-5 pb-16">
 						<Button gradient={true}>Load More</Button>

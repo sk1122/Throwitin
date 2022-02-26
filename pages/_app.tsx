@@ -7,6 +7,7 @@ import abi from '../interface/contract.json'
 import { ethers } from "ethers";
 import { Project } from "../types/project";
 import { Provider, chain, defaultChains, useContract } from 'wagmi'
+import { ExternalProvider } from '@ethersproject/providers'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
@@ -18,7 +19,7 @@ import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
 //   }
 // }
 
-const CONTRACT_ADDRESS = '0x41C9C4e683Bf46e7fcDB06a5F0f2b29938a90Fb5'
+const CONTRACT_ADDRESS = '0x0B4D84772fb2ed57527c9Fe2799fa32ac7B28845'
 
 function MyApp({ Component, pageProps }: AppProps) {
   
@@ -29,10 +30,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const connectContract = async () => {
     try {
-      contract = useContract({
-        addressOrName: CONTRACT_ADDRESS,
-        contractInterface: abi
-      })
+      provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+      signer = provider.getSigner()
+      contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer)
     } catch(e) {
       console.log(e)
     }
@@ -155,6 +155,26 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   /// Setter Functions
 
+  const contribute = async (projectId: number, amount: number) => {
+    try {
+      let value = ethers.utils.parseUnits(amount.toString(), 6)
+      console.log(value)
+      connectContract()
+      let erc20abi = ["function approve(address _spender, uint256 _value) public returns (bool success)"]
+      let erc20contract = new ethers.Contract('0x2058A9D7613eEE744279e3856Ef0eAda5FCbaA7e', erc20abi, signer)
+      let tx = await erc20contract.approve(CONTRACT_ADDRESS, value)
+      await tx.wait()
+      console.log(projectId, value)
+      const contribution = await contract.contribute(projectId, value);
+      await contribution.wait()
+      console.log(contribution)
+      return true
+    } catch(e) {
+      console.log(e)
+      return false
+    }
+  }
+
   const createProject = async (formData: Project) => {
     try {
       connectContract()
@@ -215,6 +235,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     checkWalletIsConnected,
     login,
     changeNetwork,
+    getAllProjects,
+    getAllProposals,
+    getDetails,
+    usersContributions,
+    createProject,
+    createProposal,
+    voteOnProposal,
+    contribute,
+    getRefund
   };
 
   const infuraId = process.env.INFURA_ID

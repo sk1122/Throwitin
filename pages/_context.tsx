@@ -9,6 +9,15 @@ export interface Context {
   checkWalletIsConnected: Function;
   login: Function;
   changeNetwork: Function;
+  getAllProjects: Function
+  getAllProposals: Function
+  getDetails: Function
+  usersContributions: Function
+  createProject: Function
+  createProposal: Function
+  voteOnProposal: Function
+  getRefund: Function
+  contribute: Function
 }
 
 export const AppContext = createContext<Context>({} as Context);

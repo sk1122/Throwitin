@@ -11,10 +11,13 @@ import {
   People,
   Story,
 } from "../components/startProject";
+import { useAccountContext } from "./_context";
+import { Project } from "../types/project";
 
 type Props = {};
 
 const startProject = (props: Props) => {
+  const { createProject } = useAccountContext()
   const [formStep, setFormStep] = useState(0);
 
   const PageHeadings = [
@@ -46,6 +49,12 @@ const startProject = (props: Props) => {
   const completeFormStep = () => {
     setFormStep((cur) => cur + 1);
   };
+
+  const submit = async () => {
+    // let project: Project = {}
+    // createProject()
+    console.log(formStep)
+  }
 
   return (
     <>
@@ -83,7 +92,8 @@ const startProject = (props: Props) => {
           {/* next page button */}
           {formStep > 4 ? (
             <div className="w-full flex justify-end">
-              <button
+              <button 
+                onClick={() => submit()}
                 className="bg-white px-6 py-2 text-black font-semibold rounded cursor-pointer"
                 type="button">
                 Submit
