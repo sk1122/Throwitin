@@ -11,7 +11,7 @@ import { ExternalProvider } from '@ethersproject/providers'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
-
+import { Toaster } from "react-hot-toast";
 
 // declare global {
 //   interface Window {
@@ -170,7 +170,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       console.log(contribution)
       return true
     } catch(e) {
-      console.log(e)
+      throw e
       return false
     }
   }
@@ -206,7 +206,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       await voting.wait()
       return true
     } catch (e) {
-      console.log(e)
+      throw e
       return false
     }
   }
@@ -288,6 +288,30 @@ function MyApp({ Component, pageProps }: AppProps) {
             crossOrigin="anonymous"
           />
         </Head>
+        <Toaster
+            position="top-center"
+            reverseOrder={false}
+            gutter={8}
+            containerClassName=""
+            containerStyle={{}}
+            toastOptions={{
+              // Define default options
+              className: '',
+              duration: 5000,
+              style: {
+                background: '#363636',
+                color: '#fff',
+              },
+              // Default options for specific types
+              success: {
+                duration: 3000,
+                theme: {
+                  primary: 'green',
+                  secondary: 'black',
+                },
+              },
+            }}
+         />
         <Component {...pageProps} />
       </Provider>
     </AppContext.Provider>

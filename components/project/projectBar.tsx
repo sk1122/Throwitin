@@ -1,12 +1,25 @@
 import { FC } from "react";
 
-const ProjectBar: FC = () => {
+type Props = {
+	title: string
+	summary?: string
+	website?: string
+	links?: string[]
+	id?: string
+	contributors?: string
+	deadline?: string
+	creator?: string
+	goal?: string
+	nft?: string
+}
+
+const ProjectBar: FC<Props> = ({ title }) => {
 	return (
 		<div className="w-full h-72 flex justify-between">
 			<div className="w-1/2 h-full flex justify-start items-center px-16 space-x-5">
 				<div className="w-40 h-40 bg-gray-500 rounded-xl shrink-0"></div>
 				<div className="flex flex-col justify-center items-start space-y-2">
-					<h1 className="font-clash text-4xl font-bold">Project Name</h1>		
+					<h1 className="font-clash text-4xl font-bold">{title}</h1>		
 					<p className="w-4/5">Short summary - Write a clear, brief title and subtitle to help people quickly understand your project. Both will appear on your project and pre-launch pages.</p>
 				</div>
 			</div>
