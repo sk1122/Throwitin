@@ -1,8 +1,10 @@
 import React from "react";
 
-type Props = {};
+type Props = {
+  register: any;
+};
 
-const Finance = (props: Props) => {
+const Finance = ({ register }: Props) => {
   return (
     <>
       {/* section 1 */}
@@ -29,6 +31,7 @@ const Finance = (props: Props) => {
               <input
                 type="number"
                 className="bg-transparent w-full px-2 border-none outline-none"
+                {...register("funding_amt")}
               />
             </div>
           </div>
@@ -55,6 +58,7 @@ const Finance = (props: Props) => {
               <input
                 type="text"
                 className="bg-transparent w-full px-2  py-2 border-none outline-none"
+                {...register("funding_reason")}
               />
             </div>
           </div>

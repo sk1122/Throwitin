@@ -17,7 +17,7 @@ const Finance = (props: Props) => {
             look like.
           </p>
         </div>
-        <Editor></Editor>
+        <Editor />
       </div>
     </>
   );
