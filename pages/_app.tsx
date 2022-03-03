@@ -12,6 +12,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
 import { Toaster } from "react-hot-toast";
+import { supabase } from "../client";
 
 // declare global {
 //   interface Window {
@@ -177,8 +178,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const createProject = async (formData: Project) => {
     try {
+      console.log(formData.title, 1646475324, ethers.utils.parseUnits(formData.goalAmount.toString(), 6), formData.uri)
       connectContract()
-      const project = await contract.startProject(formData.title, formData.fundRaisingDeadline, formData.goalAmount, formData.category, formData.img, formData.uri)
+      const project = await contract.startProject(formData.title, 1, ethers.utils.parseUnits(formData.goalAmount.toString(), 6), formData.uri)
       await project.wait()
       return true
     } catch(e) {
@@ -221,6 +223,55 @@ function MyApp({ Component, pageProps }: AppProps) {
       console.log(e)
       return false
     }
+  }
+
+  const getImages = async (projectId: string) => {
+    let image_urls: string[] = []
+
+    const { data, error } = await supabase
+      .storage
+      .from('projects')
+      .list(projectId, {
+        limit: 100,
+        offset: 0,
+        sortBy: { column: 'name', order: 'asc' },
+      })
+
+      if (!data || error || data.length == 0) {
+        return false
+      }
+
+      const map = data.map((v: any) => {
+        const { publicURL, error } = supabase
+          .storage
+          .from('projects')
+          .getPublicUrl(`${projectId}/${v.name}`)
+        
+        if (!publicURL || error) {
+          return false
+        }
+
+        image_urls.push(publicURL as string)
+      })
+
+      await Promise.all(map)
+
+      return image_urls
+  }
+
+  const uploadFile = async (file: File, projectId: number) => {
+    const { data, error } = await supabase.storage
+      .from('projects')
+      .upload(`${projectId}/${file.name}`, file, {
+        cacheControl: '3600',
+        upsert: false,
+      })
+
+    const { data: dataE, error: errorE } = await supabase.storage.listBuckets()
+    console.log(dataE)
+
+    if (error) console.log(error, 'Error')
+    console.log(data)
   }
 
   useEffect(() => {

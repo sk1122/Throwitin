@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 type Props = {
-  register: any;
+  register?: any;
 };
 
 const Faq = ({ register }: Props) => {
@@ -24,18 +24,17 @@ const Faq = ({ register }: Props) => {
   ]);
 
   const addFaq = () => {};
+  
   return (
     <>
       <div className="w-full flex flex-col">
         {/* single-question */}
-        {faq.map((item) => (
+        {faq.map((item, i) => (
           <div className="mx-[160px] border border-gray-300 rounded mb-10">
             {/* question */}
-            <div className="border-b border-gray-300 px-10 py-5">
-              {item.question}
-            </div>
+            <input placeholder={item.question} className="border-b border-gray-300 px-10 py-5 w-full bg-black" />
             {/* answer */}
-            <div className="px-10 py-5">{item.answer}</div>
+            <textarea className="px-10 py-5 w-full h-40 bg-black" placeholder={item.answer}></textarea>
           </div>
         ))}
 

@@ -55,7 +55,12 @@ const startProject = (props: Props) => {
   };
 
   const onSubmit = async (data: any) => {
-    let project: Project = { ...data };
+    let project: Project = {} as Project;
+    project.fundRaisingDeadline = parseInt((data.project_duration.getTime() / 1000).toFixed(0))
+    project.goalAmount = data.funding_amt
+    project.title = data.title
+    project.uri = ''
+    console.log(project)
     createProject(project);
     console.log(data);
   };

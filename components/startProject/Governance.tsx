@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 type Props = {
   register: any;
 };
 
 const Governance = ({ register }: Props) => {
+  const [projectImage, setProjectImage] = useState('')
+  
+  const handleImage = (e: any) => {
+    console.log(e.target.files)
+    const file = e.target.files[0] as File
+    setProjectImage(URL.createObjectURL(file))
+  }
+
   return (
     <>
       {/* section 1 */}
@@ -30,10 +38,17 @@ const Governance = ({ register }: Props) => {
         {/* right */}
         <div className="w-full">
           <div className="mt-20px border-2 border-white relative cursor-pointer">
+            {projectImage !== '' && (
+              <img
+                src={projectImage}
+                className="select-none absolute z-50 m-0 h-full w-full cursor-pointer select-none rounded-full p-0 outline-none"
+              />
+            )}
             <input
               className="absolute m-0 p-0 w-full h-full outline-none opacity-0"
               type="file"
               {...register("nft_image")}
+              onChange={(e) => handleImage(e)}
               accept="image/*"
             />
             <div className="py-20 text-center">

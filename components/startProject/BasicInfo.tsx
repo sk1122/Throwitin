@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 type Props = {
   register: any;
   control: any;
@@ -12,6 +14,25 @@ const classes = {
 };
 
 const BasicInfo = ({ register, Controller, control }: Props) => {
+  const [projectImage, setProjectImage] = useState('')
+  const [projectMultipleImagesUrls, setProjectMultipleImagesUrls] = useState<string[]>([])
+
+  const handleImage = (e: any) => {
+    console.log(e.target.files)
+    const file = e.target.files[0] as File
+    setProjectImage(URL.createObjectURL(file))
+  }
+
+  const handleMultipleImages = (files: any) => {
+    let filesArray: File[] = []
+    let stringMultipleImages: string[] = []
+    Object.keys(files).map((key) => {
+      filesArray.push(files[key])
+      stringMultipleImages.push(URL.createObjectURL(files[key]))
+    })
+    setProjectMultipleImagesUrls(stringMultipleImages)
+  }
+  
   return (
     <>
       <div className="flex w-full mb-16">
@@ -95,12 +116,19 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
         </div>
         <div className="w-full">
           <div className="mt-20px border-2 border-white relative">
+            {projectImage !== '' && (
+              <img
+                src={projectImage}
+                className="select-none absolute z-50 m-0 h-full w-full cursor-pointer select-none rounded-full p-0 outline-none"
+              />
+            )}
             <input
               required
               className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
               type="file"
               {...register("profile_image", { required: true })}
               accept="image/*"
+              onChange={(e) => handleImage(e)}
             />
             <div className="py-20 text-center">
               <h3 className="uppercase">
@@ -128,22 +156,44 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
         </div>
         <div className="w-full">
           <div className="mt-20px border-2 border-white relative cursor-pointer">
-            <input
-              className="absolute m-0 p-0 w-full h-full outline-none opacity-0"
-              required
-              type="file"
-              {...register("multiple_images", { required: true })}
-              accept="image/*"
-              multiple
-            />
-            <div className="py-20 text-center">
-              <h3 className="uppercase">
-                Drag and drop image or select a file
-              </h3>
-              <p className="text-xs opacity-50 select-none">
-                Image must be *.jpg or *.png and no longer than
-              </p>
-            </div>
+          {projectMultipleImagesUrls.length !== 0 ? (
+              <div className="flex flex-wrap items-center justify-center">
+                {projectMultipleImagesUrls.map((singleImg) => (
+                  <img src={singleImg} className="m-2 h-24 w-36" />
+                ))}
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  name="projectImg"
+                  // @ts-ignore
+                  value={''}
+                  // @ts-ignore
+                  onChange={(e) => handleMultipleImages(e.target.files)}
+                  className="absolute z-50 h-full w-full cursor-pointer rounded-full p-0 opacity-0 outline-none"
+                />
+              </div>
+            ) : (
+              <>
+                <input
+                  className="absolute m-0 p-0 w-full h-full outline-none opacity-0"
+                  required
+                  type="file"
+                  {...register("multiple_images", { required: true })}
+                  accept="image/*"
+                  onChange={(e) => handleMultipleImages(e.target.files)}
+                  multiple
+                />
+                <div className="py-20 text-center">
+                  <h3 className="uppercase">
+                    Drag and drop image or select a file
+                  </h3>
+                  <p className="text-xs opacity-50 select-none">
+                    Image must be *.jpg or *.png and no longer than
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -234,7 +284,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
               <Controller
                 control={control}
                 name="project_duration"
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { value, onChange } }: any) => (
                   <input
                     required
                     className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
