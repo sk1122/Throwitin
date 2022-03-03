@@ -1,8 +1,10 @@
 import { useState } from "react";
 
-type Props = {};
+type Props = {
+  register: any;
+};
 
-const Faq = (props: Props) => {
+const Faq = ({ register }: Props) => {
   const [faq, setFaq] = useState([
     {
       question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit ?",
@@ -41,7 +43,8 @@ const Faq = (props: Props) => {
         <div className="mx-[160px] flex justify-end items-center pb-16">
           <button
             className="px-6 py-2 bg-black cursor-pointer rounded"
-            onClick={addFaq}>
+            onClick={addFaq}
+          >
             Add new question +
           </button>
         </div>

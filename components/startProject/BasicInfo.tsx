@@ -1,4 +1,8 @@
-type Props = {};
+type Props = {
+  register: any;
+  control: any;
+  Controller: any;
+};
 
 const classes = {
   commonLabel: "font-semibold mb-3",
@@ -7,7 +11,7 @@ const classes = {
   sectionDescription: "text-sm w-7/12",
 };
 
-const BasicInfo = (props: Props) => {
+const BasicInfo = ({ register, Controller, control }: Props) => {
   return (
     <>
       <div className="flex w-full mb-16">
@@ -27,11 +31,21 @@ const BasicInfo = (props: Props) => {
           <label htmlFor="" className={`${classes.commonLabel}`}>
             Title
           </label>
-          <input type="text" className={`${classes.commonInput}`} />
+          <input
+            type="text"
+            required
+            className={`${classes.commonInput}`}
+            {...register("title", { required: "Title is required" })}
+          />
           <label htmlFor="" className={`${classes.commonLabel}`}>
             Subtitle
           </label>
-          <input type="text" className={`${classes.commonInput}`} />
+          <input
+            type="text"
+            required
+            className={`${classes.commonInput}`}
+            {...register("subtitle", { required: true })}
+          />
         </div>
       </div>
       <div className="w-full flex mb-16">
@@ -51,8 +65,13 @@ const BasicInfo = (props: Props) => {
           <label htmlFor="" className={`${classes.commonLabel}`}>
             Category
           </label>
-          <select name="" id="" className={`${classes.commonInput}`}>
+          <select
+            {...register("category", { required: true })}
+            required
+            className={`${classes.commonInput}`}
+          >
             <option value=""></option>
+            <option value="test1">Test1</option>
           </select>
         </div>
       </div>
@@ -77,9 +96,10 @@ const BasicInfo = (props: Props) => {
         <div className="w-full">
           <div className="mt-20px border-2 border-white relative">
             <input
+              required
               className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
               type="file"
-              // onchange={() => {}}
+              {...register("profile_image", { required: true })}
               accept="image/*"
             />
             <div className="py-20 text-center">
@@ -110,8 +130,9 @@ const BasicInfo = (props: Props) => {
           <div className="mt-20px border-2 border-white relative cursor-pointer">
             <input
               className="absolute m-0 p-0 w-full h-full outline-none opacity-0"
+              required
               type="file"
-              // onchange={() => {}}
+              {...register("multiple_images", { required: true })}
               accept="image/*"
               multiple
             />
@@ -139,32 +160,52 @@ const BasicInfo = (props: Props) => {
             <label htmlFor="website_url" className={`${classes.commonLabel}`}>
               Website URL
             </label>
-            <input type="text" className={`${classes.commonInput}`} />
+            <input
+              type="text"
+              required
+              className={`${classes.commonInput}`}
+              {...register("project_url", { required: true })}
+            />
           </div>
           <div className="flex flex-col mb-3">
             <label htmlFor="video_link" className={`${classes.commonLabel}`}>
               Video link
             </label>
-            <input type="text" className={`${classes.commonInput}`} />
+            <input
+              type="text"
+              required
+              className={`${classes.commonInput}`}
+              {...register("project_link", { required: true })}
+            />
           </div>
           <div className="flex flex-col mb-3">
             <label htmlFor="twitter" className={`${classes.commonLabel}`}>
               Twitter
             </label>
-            <input type="text" className={`${classes.commonInput}`} />
+            <input
+              type="text"
+              required
+              className={`${classes.commonInput}`}
+              {...register("project_twitter", { required: true })}
+            />
           </div>
           <div className="flex flex-col mb-3">
             <label htmlFor="discord" className={`${classes.commonLabel}`}>
               Discord
             </label>
-            <input type="text" className={`${classes.commonInput}`} />
+            <input
+              type="text"
+              required
+              className={`${classes.commonInput}`}
+              {...register("project_discord", { required: true })}
+            />
           </div>
         </div>
       </div>
-      <div>
+      {/* <div>
         <div></div>
         <div></div>
-      </div>
+      </div> */}
       <div className="w-full flex mb-16">
         <div className="w-full">
           <div className={`${classes.sectionTitle}`}>Campaign duration</div>
@@ -190,35 +231,50 @@ const BasicInfo = (props: Props) => {
             </div>
 
             <div className="border-2 border-white relative cursor-pointer rounded mt-8">
-              <input
-                className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
-                type="date"
-                // onchange={() => {}}
-                value=""
+              <Controller
+                control={control}
+                name="project_duration"
+                render={({ field: { value, onChange } }) => (
+                  <input
+                    required
+                    className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
+                    type="date"
+                    {...register("project_duration", {
+                      valueAsDate: true,
+                      required: true,
+                    })}
+                    value={value}
+                    onChange={onChange}
+                  />
+                )}
               />
+
               <div className="py-3 px-4">
                 <svg
                   className="w-6 h-6"
                   fill="currentColor"
                   viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg">
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     fillRule="evenodd"
                     d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                    clipRule="evenodd"></path>
+                    clipRule="evenodd"
+                  ></path>
                 </svg>
               </div>
             </div>
           </div>
           {/* time */}
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <div className={`${classes.commonLabel}`}>Time</div>
-            {/* hour */}
+            
             <div className="flex space-x-4 items-center">
               <select
                 name="hours"
                 id=""
-                className="bg-brand-dark border-2 rounded py-3 px-2 select-none">
+                className="bg-brand-dark border-2 rounded py-3 px-2 select-none"
+              >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((hour) => (
                   <option key={hour} value={hour}>
                     {hour}
@@ -228,7 +284,8 @@ const BasicInfo = (props: Props) => {
               <select
                 name="minutes"
                 id=""
-                className="bg-brand-dark border-2 rounded py-3 px-2 select-none">
+                className="bg-brand-dark border-2 rounded py-3 px-2 select-none"
+              >
                 {[
                   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
                   19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
@@ -242,7 +299,8 @@ const BasicInfo = (props: Props) => {
               <select
                 name="hours"
                 id=""
-                className="bg-brand-dark border-2 rounded py-3 px-2 select-none">
+                className="bg-brand-dark border-2 rounded py-3 px-2 select-none"
+              >
                 {["AM", "PM"].map((daytime) => (
                   <option key={daytime.toLowerCase()} value={daytime}>
                     {daytime}
@@ -251,7 +309,7 @@ const BasicInfo = (props: Props) => {
               </select>
               <div className="text-xl font-semibold">IST</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

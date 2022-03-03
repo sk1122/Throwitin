@@ -1,8 +1,10 @@
 import React from "react";
 
-type Props = {};
+type Props = {
+  register: any;
+};
 
-const Governance = (props: Props) => {
+const Governance = ({ register }: Props) => {
   return (
     <>
       {/* section 1 */}
@@ -31,9 +33,8 @@ const Governance = (props: Props) => {
             <input
               className="absolute m-0 p-0 w-full h-full outline-none opacity-0"
               type="file"
-              //   onchange={() => {}}
+              {...register("nft_image")}
               accept="image/*"
-              multiple
             />
             <div className="py-20 text-center">
               <h3 className="uppercase">

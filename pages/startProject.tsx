@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useForm, Controller } from "react-hook-form";
+
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -17,8 +19,10 @@ import { Project } from "../types/project";
 type Props = {};
 
 const startProject = (props: Props) => {
-  const { createProject } = useAccountContext()
+  const { createProject } = useAccountContext();
   const [formStep, setFormStep] = useState(0);
+
+  const { register, handleSubmit, watch, control } = useForm();
 
   const PageHeadings = [
     {
@@ -46,15 +50,46 @@ const startProject = (props: Props) => {
     },
   ];
 
-  const completeFormStep = () => {
+  const getSteps = () => {
+    return ["Basic", "Finance", "Governance", "Story", "FAQ", "People"];
+  };
+
+  const onSubmit = async (data: any) => {
+    let project: Project = { ...data };
+    createProject(project);
+    console.log(data);
+  };
+
+  const getStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return (
+          <BasicInfo
+            register={register}
+            control={control}
+            Controller={Controller}
+          />
+        );
+      case 1:
+        return <Finance register={register} />;
+      case 2:
+        return <Governance register={register} />;
+      case 3:
+        return <Story />;
+      case 4:
+        return <Faq />;
+      case 5:
+        return <People register={register} />;
+    }
+  };
+
+  const handleNext = () => {
     setFormStep((cur) => cur + 1);
   };
 
-  const submit = async () => {
-    // let project: Project = {}
-    // createProject()
-    console.log(formStep)
-  }
+  const handleBack = () => {
+    setFormStep((cur) => cur - 1);
+  };
 
   return (
     <>
@@ -81,38 +116,81 @@ const startProject = (props: Props) => {
       </div>
       <div className="text-white flex flex-col items-start justify-center px-16 py-16 bg-brand-dark">
         {/* form components goes here */}
-        <form className="w-full">
-          {formStep === 0 && <BasicInfo />}
-          {formStep === 1 && <Finance />}
-          {formStep === 2 && <Governance />}
-          {formStep === 3 && <Story />}
-          {formStep === 4 && <Faq />}
-          {formStep === 5 && <People />}
+        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+          {getStepContent(formStep)}
 
           {/* next page button */}
-          {formStep > 4 ? (
-            <div className="w-full flex justify-end">
-              <button 
-                onClick={() => submit()}
+          {formStep === 5 ? (
+            <div className="w-full flex justify-between">
+              <button
                 className="bg-white px-6 py-2 text-black font-semibold rounded cursor-pointer"
-                type="button">
+                onClick={handleBack}
+                type="button"
+              >
+                Back: {getSteps()[formStep - 1]}
+              </button>
+              <button
+                className="bg-white px-6 py-2 text-black font-semibold rounded cursor-pointer"
+                type="submit"
+              >
                 Submit
               </button>
             </div>
           ) : (
-            <div className="w-full flex justify-end">
-              <button
-                className="bg-white px-6 py-2 text-black font-semibold rounded cursor-pointer"
-                onClick={completeFormStep}
-                type="button">
-                Next: Finance
-              </button>
-            </div>
-          )}
-          {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
-        </form>
-      </div>
+            <>
+              {formStep === 0 ? (
+                <div className="w-full flex justify-end">
+                  {/* back */}
+                  {formStep !== 0 && (
+                    <button
+                      className="bg-white px-6 py-2 text-black font-semibold rounded cursor-pointer"
+                      onClick={handleBack}
+                      type="button"
+                      disabled={formStep === 0}
+                    >
+                      Back: {getSteps()[formStep - 1]}
+                    </button>
+                  )}
 
+                  {/* next */}
+                  <button
+                    className="bg-white px-6 py-2 text-black font-semibold rounded cursor-pointer"
+                    onClick={handleNext}
+                    type="button"
+                  >
+                    Next: {getSteps()[formStep + 1].toString()}
+                  </button>
+                </div>
+              ) : (
+                <div className="w-full flex justify-between">
+                  {/* back */}
+                  {
+                    <button
+                      className="bg-white px-6 py-2 text-black font-semibold rounded cursor-pointer"
+                      onClick={handleBack}
+                      type="button"
+                      disabled={formStep === 0}
+                    >
+                      Back: {getSteps()[formStep - 1]}
+                    </button>
+                  }
+
+                  {/* next */}
+                  <button
+                    className="bg-white px-6 py-2 text-black font-semibold rounded cursor-pointer"
+                    onClick={handleNext}
+                    type="button"
+                  >
+                    Next: {getSteps()[formStep + 1].toString()}
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </form>
+        {/* uncomment string below to see the result on the page */}
+        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>  */}
+      </div>
       <Footer />
     </>
   );
