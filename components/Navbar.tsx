@@ -27,7 +27,7 @@ const Navbar = () => {
             },
             {
               name: "Fund Project",
-              link: "/",
+              link: "/projects",
             },
             {
               name: "Leaderboard",
