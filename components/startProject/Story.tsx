@@ -1,9 +1,11 @@
 import React from "react";
 import Editor from "../Editor";
 
-type Props = {};
+type Props = {
+  setEditorText: any;
+};
 
-const Finance = (props: Props) => {
+const Finance = ({ setEditorText }: Props) => {
   return (
     <>
       <div className="w-full flex flex-col mb-16">
@@ -17,7 +19,7 @@ const Finance = (props: Props) => {
             look like.
           </p>
         </div>
-        <Editor />
+        <Editor setEditorText={setEditorText} />
       </div>
     </>
   );

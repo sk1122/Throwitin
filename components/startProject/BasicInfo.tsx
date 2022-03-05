@@ -65,7 +65,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
             type="text"
             required
             className={`${classes.commonInput}`}
-            {...register("subtitle", { required: true })}
+            {...register("tagline", { required: true })}
           />
         </div>
       </div>
@@ -214,7 +214,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
               type="text"
               required
               className={`${classes.commonInput}`}
-              {...register("project_url", { required: true })}
+              {...register("url", { required: true })}
             />
           </div>
           <div className="flex flex-col mb-3">
@@ -225,7 +225,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
               type="text"
               required
               className={`${classes.commonInput}`}
-              {...register("project_link", { required: true })}
+              {...register("video", { required: true })}
             />
           </div>
           <div className="flex flex-col mb-3">
@@ -236,7 +236,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
               type="text"
               required
               className={`${classes.commonInput}`}
-              {...register("project_twitter", { required: true })}
+              {...register("twitter", { required: true })}
             />
           </div>
           <div className="flex flex-col mb-3">
@@ -247,7 +247,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
               type="text"
               required
               className={`${classes.commonInput}`}
-              {...register("project_discord", { required: true })}
+              {...register("discord", { required: true })}
             />
           </div>
         </div>

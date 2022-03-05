@@ -15,12 +15,15 @@ import {
 } from "../components/startProject";
 import { useAccountContext } from "./_context";
 import { Project } from "../types/project";
+import toast from "react-hot-toast";
 
 type Props = {};
 
 const startProject = (props: Props) => {
   const { createProject } = useAccountContext();
   const [formStep, setFormStep] = useState(0);
+
+  const[editorText, setEditorText] = useState('')
 
   const { register, handleSubmit, watch, control } = useForm();
 
@@ -60,8 +63,31 @@ const startProject = (props: Props) => {
     project.goalAmount = data.funding_amt
     project.title = data.title
     project.uri = ''
-    console.log(project)
-    createProject(project);
+    project.desc = editorText
+    project.category = data.category
+    project.twitter = data.twitter
+    project.discord = data.discord
+    project.tagline = data.tagline
+    project.video = data.video
+    project.url = data.url
+    console.log(project, editorText)
+    let promise = createProject(project);
+    toast.promise(promise, 
+			{
+				loading: 'Loading',
+				success: (data) => `Successfully Created`,
+				error: (err) => `This just happened: ${err.message}`,
+			  },
+			  {
+				style: {
+				  minWidth: '250px',
+				},
+				success: {
+				  duration: 5000,
+				  icon: '🔥',
+				},
+			  }
+		);
     console.log(data);
   };
 
@@ -80,7 +106,7 @@ const startProject = (props: Props) => {
       case 2:
         return <Governance register={register} />;
       case 3:
-        return <Story />;
+        return <Story setEditorText={setEditorText} />;
       case 4:
         return <Faq />;
       case 5:
@@ -194,7 +220,7 @@ const startProject = (props: Props) => {
           )}
         </form>
         {/* uncomment string below to see the result on the page */}
-        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>  */}
+        <pre>{JSON.stringify(watch(), null, 2)}</pre> 
       </div>
       <Footer />
     </>

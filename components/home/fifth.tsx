@@ -15,7 +15,7 @@ const Fifth = () => {
 	};
 
 	const { getAllProjects } = useAccountContext()
-	const [projects, setProjects] = useState([])
+	const [projects, setProjects] = useState<any[]>()
 
 	useEffect(() => {
 		(async () => {
@@ -37,8 +37,8 @@ const Fifth = () => {
 				<>
 					{projects.length !== 0 && 
 						<div ref={slider} className="w-11/12 h-5/6 mt-20 flex justify-start items-start space-x-5 ml-16 overflow-x-scroll no-scrollbar scroll-smooth">
-							{projects.slice(0, 6).map((value: any) => (
-								<Project title={value['title']} description='Yo' status={value['state'] === 0 ? 'Funding' : 'Failed'} link={`/project/${value['projectId']}`} verified={false} raised={ethers.utils.formatUnits(value.currentBalance, 6)}></Project>
+							{projects[0].slice(0, 6).map((value: any, index: number) => (
+								<Project title={value['title']} description={projects[1][index]?.desc} status={value['state'] === 0 ? 'Funding' : 'Failed'} link={`/project/${value['projectId']}`} verified={false} raised={value.currentBalance}></Project>
 							))}
 						</div>
 					}

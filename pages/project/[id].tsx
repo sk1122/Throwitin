@@ -44,7 +44,7 @@ export async function getServerSideProps(context: any) {
 
 const SingleProject = ({ id }: Props) => {
 	const [projects, setProjects] = useState([1]);
-	const [project, setProject] = useState<Project>();
+	const [project, setProject] = useState<any[]>();
 	const [section, setSection] = useState("campaign");
 	const [proposals, setProposals] = useState<any>([]);
 	const [loading, setLoading] = useState<boolean>(true);
@@ -57,7 +57,7 @@ const SingleProject = ({ id }: Props) => {
 			setLoading(true)
 			setProject(await getDetails(id))
 			setLoading(false)
-			console.log('yo')
+			console.log('yo', await getDetails(id))
 		})();
 	}, []);
 	
@@ -70,34 +70,40 @@ const SingleProject = ({ id }: Props) => {
 		})();
 	}, [section]);
 
+	useEffect(() => console.log(project), [project])
+
 	return (
 		<div className="font-poppins bg-black flex flex-col items-center justify-start min-h-screen text-white">
 			<Head>
-				{project?.title && <title>{project.title}</title>}
-				{!project?.title && <title>Project - throwwitin</title>}
+				{project && 
+					<>
+						{project[0] && <title>{project[0].title}</title>}
+						{!project[0] && <title>Project - throwitin</title>}
+					</>
+				}
 			</Head>
 			<Navbar></Navbar>
-			{!loading && 
-				<div>
-					<ProjectBar title={project?.title as string}></ProjectBar>
+			{!loading && project && project[0] && 
+				<div className="w-full">
+					<ProjectBar title={project[0].title as string} summary={project[1].tagline} url={project[1].url} twitter={project[1].twitter} discord={project[1].discord} video={project[1].video}></ProjectBar>
 					<Hero
 						raised={
-							ethers.utils.formatUnits(project?.currentBalance, 6)
+							ethers.utils.formatUnits(project[0].currentBalance, 6)
 						}
 						id={
-							project?.projectId.toNumber()
+							project[0].projectId.toNumber()
 						}
 						contributors={
-							project?.noOfContributors.toNumber()
+							project[0].noOfContributors.toNumber()
 						}
 						deadline={
-							new Date(project?.deadline.toNumber() * 1000).toDateString()
+							new Date(project[0].deadline.toNumber() * 1000).toDateString()
 						}
-						creator={project?.creator as string}
+						creator={project[0].creator as string}
 						goal={
-							ethers.utils.formatUnits(project?.amountGoal.toNumber(), 6)
+							ethers.utils.formatUnits(project[0].amountGoal.toNumber(), 6)
 						}
-						nft={project?.NFTaddress as string}
+						nft={project[0].NFTaddress as string}
 					></Hero>
 				</div>
 			}
@@ -137,7 +143,7 @@ const SingleProject = ({ id }: Props) => {
 						FAQ
 					</div>
 				</div>
-				{section === "campaign" && <Campaign />}
+				{project && project[1] && section === "campaign" && <Campaign desc={project[1].desc} />}
 				{section === "proposals" && (
 					<div className="w-full h-full space-y-5">
 						<div className="w-full flex justify-between">
@@ -151,8 +157,8 @@ const SingleProject = ({ id }: Props) => {
 							</div>
 						</div>
 						{console.log(proposals)}
-						{proposals.map((value: any) => (
-							<Proposal description={value.desc} address={value.receipient} yes={value.agreeVotes.toNumber()} no={value.disagreeVotes.toNumber()} value={ethers.utils.formatUnits(value.value, 6)} id={project?.projectId.toNumber()} proposalId={value.requestId.toNumber()} />
+						{project && project[0] && proposals.map((value: any) => (
+							<Proposal description={value.desc} address={value.receipient} yes={value.agreeVotes.toNumber()} no={value.disagreeVotes.toNumber()} value={ethers.utils.formatUnits(value.value, 6)} id={project[0].projectId.toNumber()} proposalId={value.requestId.toNumber()} />
 						))}
 					</div>
 				)}

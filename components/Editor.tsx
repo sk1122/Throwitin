@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Heading from "@tiptap/extension-heading";
@@ -155,7 +155,7 @@ const MenuBar: FC<Props> = ({ editor }) => {
   );
 };
 
-export default () => {
+export default ({ setEditorText }: any) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -176,6 +176,9 @@ export default () => {
         class:
           "w-full h-[60vh] text-white rounded-md mr-20 border-none outline-none resize-none",
       },
+    },
+    onUpdate({ editor }) {
+      setEditorText(editor.getText())
     },
   });
 

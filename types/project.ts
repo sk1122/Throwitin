@@ -5,6 +5,22 @@ export interface Project {
   category: string;
   img: string;
   uri: string;
+  desc: string
+  databaseID?: number
+  creator: string
+  location: string
+  state: string
+  team: string[]
+  tagline: string
+  url: string
+  video: string
+  twitter: string
+  discord: string
+}
+
+export interface Team {
+  name: string
+  twitter: string
 }
 
 export type formFields = {};

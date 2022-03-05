@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import abi from '../interface/contract.json'
 import { ethers } from "ethers";
-import { Project } from "../types/project";
+import { Project, Team } from "../types/project";
 import { Provider, chain, defaultChains, useContract } from 'wagmi'
 import { ExternalProvider } from '@ethersproject/providers'
 import { InjectedConnector } from 'wagmi/connectors/injected'
@@ -20,7 +20,7 @@ import { supabase } from "../client";
 //   }
 // }
 
-const CONTRACT_ADDRESS = '0x0B4D84772fb2ed57527c9Fe2799fa32ac7B28845'
+const CONTRACT_ADDRESS = '0x343526EF58f026dc04457C67179431Ad8A0819B5'
 
 function MyApp({ Component, pageProps }: AppProps) {
   
@@ -108,8 +108,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   const getAllProjects = async () => {
     try {
       connectContract()
-      const projects = await contract.getAllProjects()
-      return projects;
+      let projects = await contract.getAllProjects()
+      let projectArray: any[] = []
+
+      let promise = projects.map(async (value: any, index: number) => {
+        let projectId = value.projectId
+        const { data, error } = await supabase.from('throwitin').select('*').eq('projectId', projectId.toNumber())
+        if(!data || error || data.length === 0) {
+          console.log(error)
+          return
+        }
+        projectArray.push(data[0])
+      })
+
+      await Promise.all(promise)
+
+      return [projects, projectArray];
     } catch(e) {
       console.log(e)
       return false
@@ -130,8 +144,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   const getDetails = async (projectId: number) => {
     try {
       connectContract()
+      let { data, error } = await supabase.from('throwitin').select('*').eq('projectId', projectId)
+      if(!data || error || data.length === 0) {
+        console.log(error)
+        data = []
+      }
+
       const details = await contract.getDetails(projectId)
-      return details
+      return [details, data[0]]
     } catch (e) {
       console.log(e)
       return false
@@ -176,11 +196,49 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }
 
-  const createProject = async (formData: Project) => {
+  useEffect(() => {
+    connectContract()
+    contract.on('ProjectStarted', async (projectId: any, databaseID: any) => {
+      try {
+        console.log(projectId, databaseID, "satyam")
+        const { data, error } = await supabase.from('throwitin').update({projectId: projectId.toNumber()}).match({ id: databaseID.toNumber() })
+        if(!data || error || data.length === 0) {
+          console.log(error)
+          return
+        }
+        console.log(data)
+      } catch (e) {
+        console.log(e)
+        return
+      }
+    })
+  }, [])
+
+  const addDataToDatabase = async (desc: string, location: string, team: string[], category: string, tagline: string, url: string, video: string, twitter: string, discord: string) => {
     try {
-      console.log(formData.title, 1646475324, ethers.utils.parseUnits(formData.goalAmount.toString(), 6), formData.uri)
+      const { data, error } = await supabase.from('throwitin').insert([{desc: desc, location: location, team: team, category: category, tagline: tagline, url: url, video: video, twitter: twitter, discord: discord}])
+      if(!data || error || data.length === 0) {
+        console.log(error)
+        return false
+      }
+
+      return data[0].id
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  }
+
+  const createProject = async (formData: Project) => {
+    let { desc, location, team, category, tagline, url, video, twitter, discord, ...projectData } = formData    
+    try {
       connectContract()
-      const project = await contract.startProject(formData.title, 1, ethers.utils.parseUnits(formData.goalAmount.toString(), 6), formData.uri)
+
+      let id = await addDataToDatabase(desc, location, team, category, tagline, url, video, twitter, discord)
+
+      if(!id) throw "Error creating data"
+
+      const project = await contract.startProject(projectData.title, 1, ethers.utils.parseUnits(projectData.goalAmount.toString(), 6), projectData.uri, id)
       await project.wait()
       return true
     } catch(e) {
