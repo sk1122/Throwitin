@@ -10,12 +10,13 @@ import { useAccountContext } from './_context'
 import { ethers } from 'ethers'
 
 const Projects = () => {
-	const { getAllProjects } = useAccountContext()
+	const { getAllProjects, getImage } = useAccountContext()
 	const [projects, setProjects] = useState<any[]>([])
 
 	useEffect(() => {
 		(async () => {
 			const projects = await getAllProjects()
+			console.log(projects, 'PROJECTS')
 			setProjects(projects)
 			console.log(projects)
 		})()
@@ -63,12 +64,9 @@ const Projects = () => {
 			{projects.length !== 0 && 
 				<div>
 					<div className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 px-16 pb-16 pt-5 gap-5">
-						{projects[0].map((value: any, index: number) => (
-							<>
-							{console.log(projects[1][index])}
-							<Project title={value['title']} description={projects[1][index]?.desc} status={value['state'] === 0 ? 'Funding' : (value['state'] === 1 ? 'Failed' : 'Successful')} link={`/project/${value['projectId']}`} verified={false} raised={value.currentBalance.toNumber()}></Project>
-							</>
-						))}
+						{projects && projects[0] && projects[0].map((value: any, index: number) => {
+							return <Project projectId={value['projectId']} title={value['title']} description={projects[1][index]?.desc} status={value['state'] === 0 ? 'Funding' : (value['state'] === 1 ? 'Failed' : 'Successful')} link={`/project/${value['projectId']}`} verified={false} raised={value.currentBalance.toNumber()}></Project>
+						})}
 					</div>
 					<div className="w-full flex justify-center items-center pt-5 pb-16">
 						<Button gradient={true}>Load More</Button>

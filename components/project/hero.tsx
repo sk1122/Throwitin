@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { useAccountContext } from "../../pages/_context";
-import Button from "../button";
+import { ImageGallary } from "./ImageGallary";
 import toast, { Toaster } from 'react-hot-toast';
 
 type Props = {
@@ -15,6 +15,7 @@ type Props = {
 	goal?: string
 	nft?: string
 	raised?: string
+	images: string[]
 }
 
 const Hero: FC<Props> = (props) => {
@@ -44,9 +45,7 @@ const Hero: FC<Props> = (props) => {
 	return (
 		<div className="w-full h-[34rem] flex justify-start items-center px-16 space-x-10">
 			<div className="relative w-2/3 flex justify-center items-center h-full">
-				<div className="w-full h-full bg-gray-600 shrink-0"></div>
-				<i className="absolute left-5 top-1/2 translate -transform-x-1/2 text-3xl fas fa-arrow-circle-left"></i>
-				<i className="absolute top-1/2 translate -transform-x-1/2 right-5 text-3xl fas fa-arrow-circle-right"></i>
+				<ImageGallary images={props.images}></ImageGallary>
 			</div>
 			<div className="w-1/3 h-full flex flex-col justify-start items-start space-y-5">
 				<div className="space-y-2">

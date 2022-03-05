@@ -16,6 +16,8 @@ export interface Project {
   video: string
   twitter: string
   discord: string
+  logo: any
+  multiple_images: any[]
 }
 
 export interface Team {

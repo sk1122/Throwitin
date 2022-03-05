@@ -230,13 +230,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   const createProject = async (formData: Project) => {
-    let { desc, location, team, category, tagline, url, video, twitter, discord, ...projectData } = formData    
+    let { desc, location, team, category, tagline, url, video, twitter, discord, logo, multiple_images, ...projectData } = formData    
     try {
       connectContract()
 
       let id = await addDataToDatabase(desc, location, team, category, tagline, url, video, twitter, discord)
-
       if(!id) throw "Error creating data"
+
+      console.log(multiple_images)
+
+      await uploadFile(logo as File, id, 'logo')
+      multiple_images.map(async (image: any) => {
+        await uploadFile(image as File, id)
+      })
 
       const project = await contract.startProject(projectData.title, 1, ethers.utils.parseUnits(projectData.goalAmount.toString(), 6), projectData.uri, id)
       await project.wait()
@@ -284,29 +290,39 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   const getImages = async (projectId: string) => {
+    const { data: projectData, error: getError } = await supabase.from('throwitin').select('*').eq('projectId', projectId)
+    if(!projectData || !projectData[0] || getError) {
+      console.log("ID not Found")
+      return []
+    }
+    const id = projectData[0].id
+    console.log(id)
+
     let image_urls: string[] = []
 
     const { data, error } = await supabase
       .storage
       .from('projects')
-      .list(projectId, {
+      .list(id, {
         limit: 100,
         offset: 0,
         sortBy: { column: 'name', order: 'asc' },
       })
 
       if (!data || error || data.length == 0) {
-        return false
+        console.log(data, error)
+        return []
       }
 
       const map = data.map((v: any) => {
         const { publicURL, error } = supabase
           .storage
           .from('projects')
-          .getPublicUrl(`${projectId}/${v.name}`)
+          .getPublicUrl(`${id}/${v.name}`)
         
         if (!publicURL || error) {
-          return false
+          console.log(error)
+          return []
         }
 
         image_urls.push(publicURL as string)
@@ -317,10 +333,33 @@ function MyApp({ Component, pageProps }: AppProps) {
       return image_urls
   }
 
-  const uploadFile = async (file: File, projectId: number) => {
+  const getImage = async (projectId: string, image: string) => {
+    const { data: projectData, error: getError } = await supabase.from('throwitin').select('*').eq('projectId', projectId)
+    if(!projectData || !projectData[0] || getError) {
+      console.log("ID not Found", projectId)
+      return []
+    }
+    const id = projectData[0].id
+    console.log(id)
+    
+    const { publicURL, error } = supabase
+      .storage
+      .from('projects')
+      .getPublicUrl(`${id}/${image}`)
+
+    if (!publicURL || error) {
+      return []
+    }
+
+    return publicURL
+  }
+
+  const uploadFile = async (file: File, projectId: number, file_name?: string) => {
+    if(!file_name) file_name = file.name
+    
     const { data, error } = await supabase.storage
       .from('projects')
-      .upload(`${projectId}/${file.name}`, file, {
+      .upload(`${projectId}/${file_name}`, file, {
         cacheControl: '3600',
         upsert: false,
       })
@@ -352,7 +391,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     createProposal,
     voteOnProposal,
     contribute,
-    getRefund
+    getRefund,
+    getImage,
+    getImages
   };
 
   const infuraId = process.env.INFURA_ID

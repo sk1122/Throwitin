@@ -1,10 +1,12 @@
 import Image from "next/image"
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import Button from './button'
 import Link from 'next/link'
 import { ethers } from "ethers"
+import { useAccountContext } from "../pages/_context"
 
 type Props = {
+	projectId: string
 	title: string,
 	description: string,
 	verified: boolean,
@@ -13,14 +15,23 @@ type Props = {
 	link: string
 }
 
-const Project: FC<Props> = ({ title, description, verified, status, raised, link }) => {
+const Project: FC<Props> = ({ projectId, title, description, verified, status, raised, link }) => {
+	const { getImage } = useAccountContext()
+	
+	const [image, setImage] = useState('')
+	useEffect(() => {
+		(async () => {
+			setImage(await getImage(projectId, 'logo'))
+		})()
+	}, [])
+	
 	return (
 		<Link href={link ? link : ''}>
 			<div className="w-96 h-152 bg-brand-cardblue flex flex-col rounded-2xl">
 				<div className="relative w-96 h-1/2 rounded-2xl">
-					<Image src="https://images.unsplash.com/photo-1642146389720-2561f65902c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=397&q=80" alt="" layout="fill" className="rounded-2xl" />
+					<img src={image} alt="No Logo Available" className="w-full h-full rounded-2xl text-white" />
 				</div>
-				<div className="w-full h-1/2 flex flex-col justify-start items-start px-6 py-2 space-y-5">
+				<div className="w-full h-1/2 flex flex-col justify-start items-start px-6 py-2 space-y-5 pb-5">
 					<div className="text-green-400 flex justify-center items-center space-x-1 mt-3">
 						<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" data-name="86977684-12db-4850-8f30-233a7c267d11" viewBox="0 0 2000 2000">
 							<path d="M1000 2000c554.17 0 1000-445.83 1000-1000S1554.17 0 1000 0 0 445.83 0 1000s445.83 1000 1000 1000z" fill="#2775ca"/>
@@ -42,7 +53,7 @@ const Project: FC<Props> = ({ title, description, verified, status, raised, link
 							</svg>
 						}
 					</div>
-					<p className="text-white font-poppins font-light text-md leading-7">
+					<p className="w-full h-full text-white font-poppins font-light text-md leading-7 overflow-hidden">
 						{description}
 					</p>			
 				</div>

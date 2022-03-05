@@ -18,6 +18,8 @@ export interface Context {
   voteOnProposal: Function
   getRefund: Function
   contribute: Function
+  getImage: Function
+  getImages: Function
 }
 
 export const AppContext = createContext<Context>({} as Context);

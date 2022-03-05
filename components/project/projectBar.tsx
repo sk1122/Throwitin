@@ -15,13 +15,19 @@ type Props = {
 	twitter: string
 	discord: string
 	video: string
+	images: string[]
+	logo: string
 }
 
-const ProjectBar: FC<Props> = ({ title, summary, url, twitter, discord, video }) => {
+const ProjectBar: FC<Props> = ({ logo, images, title, summary, url, twitter, discord, video }) => {
 	return (
 		<div className="w-full h-72 flex justify-between">
 			<div className="w-1/2 h-full flex justify-start items-center px-16 space-x-5">
-				<div className="w-40 h-40 bg-gray-500 rounded-xl shrink-0"></div>
+				{images && images[0] && 
+					<div className="w-40 h-40 rounded-xl shrink-0">
+						<img src={logo} alt="" className="w-full h-full" />
+					</div>
+				}
 				<div className="flex flex-col justify-center items-start space-y-2">
 					<h1 className="font-clash text-4xl font-bold">{title}</h1>		
 					<p className="w-4/5">{summary}</p>

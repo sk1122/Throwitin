@@ -24,6 +24,8 @@ const startProject = (props: Props) => {
   const [formStep, setFormStep] = useState(0);
 
   const[editorText, setEditorText] = useState('')
+  const[images, setImages] = useState<File[]>()
+  const[logo, setLogo] = useState<File>()
 
   const { register, handleSubmit, watch, control } = useForm();
 
@@ -70,6 +72,8 @@ const startProject = (props: Props) => {
     project.tagline = data.tagline
     project.video = data.video
     project.url = data.url
+    project.multiple_images = images as File[]
+    project.logo = logo
     console.log(project, editorText)
     let promise = createProject(project);
     toast.promise(promise, 
@@ -99,6 +103,8 @@ const startProject = (props: Props) => {
             register={register}
             control={control}
             Controller={Controller}
+            setLogo={setLogo}
+            setImages={setImages}
           />
         );
       case 1:

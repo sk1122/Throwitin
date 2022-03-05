@@ -4,6 +4,8 @@ type Props = {
   register: any;
   control: any;
   Controller: any;
+  setImages: any
+  setLogo: any
 };
 
 const classes = {
@@ -13,13 +15,14 @@ const classes = {
   sectionDescription: "text-sm w-7/12",
 };
 
-const BasicInfo = ({ register, Controller, control }: Props) => {
+const BasicInfo = ({ register, Controller, control, setImages, setLogo }: Props) => {
   const [projectImage, setProjectImage] = useState('')
   const [projectMultipleImagesUrls, setProjectMultipleImagesUrls] = useState<string[]>([])
 
   const handleImage = (e: any) => {
     console.log(e.target.files)
     const file = e.target.files[0] as File
+    setLogo(file)
     setProjectImage(URL.createObjectURL(file))
   }
 
@@ -31,6 +34,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
       stringMultipleImages.push(URL.createObjectURL(files[key]))
     })
     setProjectMultipleImagesUrls(stringMultipleImages)
+    setImages(filesArray)
   }
   
   return (
@@ -126,7 +130,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
               required
               className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
               type="file"
-              {...register("profile_image", { required: true })}
+              {...register("logo", { required: true })}
               accept="image/*"
               onChange={(e) => handleImage(e)}
             />
