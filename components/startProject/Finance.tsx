@@ -8,10 +8,10 @@ const Finance = ({ register }: Props) => {
   return (
     <>
       {/* section 1 */}
-      <div className="w-full flex mb-16">
+      <div className="w-full flex flex-col md:flex-row space-y-4 md:space-y-0 mb-16">
         <div className="w-full">
           <div className="font-semibold text-xl mb-4">Funding Goal</div>
-          <p className="text-sm w-7/12">
+          <p className="text-sm md:w-7/12">
             Set an achievable goal that covers what you need to complete your
             project.
             <br />
@@ -20,7 +20,7 @@ const Finance = ({ register }: Props) => {
           </p>
         </div>
         <div className="w-full flex items-center flex-col">
-          <div className="w-3/5">
+          <div className="md:w-3/5">
             <label htmlFor="goal_amount" className="font-semibold">
               Goal Amount
             </label>
@@ -38,10 +38,10 @@ const Finance = ({ register }: Props) => {
         </div>
       </div>
       {/* section 2 */}
-      <div className="w-full flex mb-16">
+      <div className="w-full flex mb-16 flex-col md:flex-row space-y-4 md:space-y-0">
         <div className="w-full">
           <div className="font-semibold text-xl mb-4">Funding Goal</div>
-          <p className="text-sm w-7/12">
+          <p className="text-sm md:w-7/12">
             Set an achievable goal that covers what you need to complete your
             project.
             <br />
@@ -50,7 +50,7 @@ const Finance = ({ register }: Props) => {
           </p>
         </div>
         <div className="w-full flex items-center flex-col">
-          <div className="w-3/5">
+          <div className="md:w-3/5">
             <label htmlFor="goal_amount" className="font-semibold">
               Why you need funding for ?
             </label>

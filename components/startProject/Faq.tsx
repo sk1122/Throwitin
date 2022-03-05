@@ -9,32 +9,38 @@ const Faq = ({ register }: Props) => {
     {
       question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit ?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna",
     },
     {
       question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit ?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna",
     },
     {
       question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit ?",
       answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna",
     },
   ]);
 
   const addFaq = () => {};
-  
+
   return (
     <>
       <div className="w-full flex flex-col">
         {/* single-question */}
         {faq.map((item, i) => (
-          <div className="mx-[160px] border border-gray-300 rounded mb-10">
+          <div className="lg:mx-[160px] border border-gray-300 rounded mb-10">
             {/* question */}
-            <input placeholder={item.question} className="border-b border-gray-300 px-10 py-5 w-full bg-black" />
+            <input
+              placeholder={item.question}
+              className="border-b border-gray-300 px-10 py-5 w-full bg-black"
+            />
             {/* answer */}
-            <textarea className="px-10 py-5 w-full h-40 bg-black" placeholder={item.answer}></textarea>
+            <textarea
+              className="px-10 py-5 w-full h-40 bg-black"
+              placeholder={item.answer}
+            ></textarea>
           </div>
         ))}
 

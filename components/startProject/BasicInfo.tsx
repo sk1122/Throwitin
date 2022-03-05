@@ -10,32 +10,43 @@ const classes = {
   commonLabel: "font-semibold mb-3",
   commonInput: "bg-transparent border border-white py-2 px-2 mb-4 rounded",
   sectionTitle: "font-semibold text-xl mb-4",
-  sectionDescription: "text-sm w-7/12",
+  sectionDescription: "text-sm lg:w-7/12",
 };
 
 const BasicInfo = ({ register, Controller, control }: Props) => {
-  const [projectImage, setProjectImage] = useState('')
-  const [projectMultipleImagesUrls, setProjectMultipleImagesUrls] = useState<string[]>([])
+  const [projectImage, setProjectImage] = useState("");
+  const [projectMultipleImagesUrls, setProjectMultipleImagesUrls] = useState<
+    string[]
+  >([]);
+
+  // date picker
+  let DateToday = new Date();
+  let month = DateToday.getMonth() + 1;
+  let day = DateToday.getDate();
+  let year = DateToday.getFullYear();
+  if (month < 10) month = "0" + month.toString();
+  if (day < 10) day = "0" + day.toString();
+  let Today = year + "-" + month + "-" + day;
 
   const handleImage = (e: any) => {
-    console.log(e.target.files)
-    const file = e.target.files[0] as File
-    setProjectImage(URL.createObjectURL(file))
-  }
+    console.log(e.target.files);
+    const file = e.target.files[0] as File;
+    setProjectImage(URL.createObjectURL(file));
+  };
 
   const handleMultipleImages = (files: any) => {
-    let filesArray: File[] = []
-    let stringMultipleImages: string[] = []
+    let filesArray: File[] = [];
+    let stringMultipleImages: string[] = [];
     Object.keys(files).map((key) => {
-      filesArray.push(files[key])
-      stringMultipleImages.push(URL.createObjectURL(files[key]))
-    })
-    setProjectMultipleImagesUrls(stringMultipleImages)
-  }
-  
+      filesArray.push(files[key]);
+      stringMultipleImages.push(URL.createObjectURL(files[key]));
+    });
+    setProjectMultipleImagesUrls(stringMultipleImages);
+  };
+
   return (
     <>
-      <div className="flex w-full mb-16">
+      <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 w-full mb-16">
         <div className="w-full">
           <div className={`${classes.sectionTitle}`}>Project Title</div>
           <p className={`${classes.sectionDescription}`}>
@@ -69,7 +80,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
           />
         </div>
       </div>
-      <div className="w-full flex mb-16">
+      <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 mb-16">
         <div className="w-full">
           <div className={`${classes.sectionTitle}`}>Project Category</div>
           <p className={`${classes.sectionDescription}`}>
@@ -96,7 +107,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
           </select>
         </div>
       </div>
-      <div className="w-full flex mb-16">
+      <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 mb-16">
         <div className="w-full">
           <div className={`${classes.sectionTitle}`}>Profile Image</div>
           <p className={`${classes.sectionDescription}`}>
@@ -116,7 +127,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
         </div>
         <div className="w-full">
           <div className="mt-20px border-2 border-white relative">
-            {projectImage !== '' && (
+            {projectImage !== "" && (
               <img
                 src={projectImage}
                 className="select-none absolute z-50 m-0 h-full w-full cursor-pointer select-none rounded-full p-0 outline-none"
@@ -141,7 +152,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
           </div>
         </div>
       </div>
-      <div className="w-full flex mb-16">
+      <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 mb-16">
         <div className="w-full">
           <div className={`${classes.sectionTitle}`}>Images</div>
           <p className={`${classes.sectionDescription}`}>
@@ -156,7 +167,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
         </div>
         <div className="w-full">
           <div className="mt-20px border-2 border-white relative cursor-pointer">
-          {projectMultipleImagesUrls.length !== 0 ? (
+            {projectMultipleImagesUrls.length !== 0 ? (
               <div className="flex flex-wrap items-center justify-center">
                 {projectMultipleImagesUrls.map((singleImg) => (
                   <img src={singleImg} className="m-2 h-24 w-36" />
@@ -167,7 +178,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
                   accept="image/*"
                   name="projectImg"
                   // @ts-ignore
-                  value={''}
+                  value={""}
                   // @ts-ignore
                   onChange={(e) => handleMultipleImages(e.target.files)}
                   className="absolute z-50 h-full w-full cursor-pointer rounded-full p-0 opacity-0 outline-none"
@@ -197,7 +208,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
           </div>
         </div>
       </div>
-      <div className="w-full flex mb-16">
+      <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 mb-16">
         <div className="w-full">
           <div className={`${classes.sectionTitle}`}>Social</div>
           <p className={`${classes.sectionDescription}`}>
@@ -256,7 +267,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
         <div></div>
         <div></div>
       </div> */}
-      <div className="w-full flex mb-16">
+      <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 mb-16">
         <div className="w-full">
           <div className={`${classes.sectionTitle}`}>Campaign duration</div>
           <p className={`${classes.sectionDescription}`}>
@@ -284,11 +295,14 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
               <Controller
                 control={control}
                 name="project_duration"
+                className="w-full h-full"
                 render={({ field: { value, onChange } }: any) => (
                   <input
                     required
-                    className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer"
+                    className="absolute m-0 p-0 w-full h-full outline-none opacity-0 cursor-pointer z-20"
                     type="date"
+                    min={Today}
+                    // min={new Date().toISOString().split("T")[0]}
                     {...register("project_duration", {
                       valueAsDate: true,
                       required: true,
@@ -299,7 +313,7 @@ const BasicInfo = ({ register, Controller, control }: Props) => {
                 )}
               />
 
-              <div className="py-3 px-4">
+              <div className="py-3 px-4 z-0 w-full h-full">
                 <svg
                   className="w-6 h-6"
                   fill="currentColor"
