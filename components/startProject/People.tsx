@@ -13,11 +13,11 @@ const People = ({ register }: Props) => {
   return (
     <>
       {/* section 1 */}
-      <div className="flex w-full mb-16">
+      <div className="flex w-full flex-col lg:flex-row space-y-4 lg:space-y-0 mb-16">
         {/* left side */}
         <div className="w-full">
           <div className="font-semibold text-xl mb-4">Project Creator</div>
-          <p className="text-sm w-7/12">
+          <p className="text-sm md:w-9/12">
             Set an achievable goal that covers what you need to complete your
             project.
             <br />
@@ -58,11 +58,11 @@ const People = ({ register }: Props) => {
         </div>
       </div>
       {/* section 2 */}
-      <div className="w-full flex mb-10">
+      <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 mb-10">
         {/* left side */}
         <div className="w-full">
           <div className="font-semibold text-xl mb-4">Team</div>
-          <p className="text-sm w-7/12">
+          <p className="text-sm lg:w-7/12">
             If you're working with others, you can grant them permission to edit
             this project, communicate with backers, and coordinate reward
             fulfillment
@@ -81,7 +81,7 @@ const People = ({ register }: Props) => {
             className={`${commonClasses.commonInput}`}
             {...register("member1_name")}
           />
-          <div className="flex space-x-8 justify-center items-center">
+          <div className="flex flex-col lg:flex-row lg:space-x-8 justify-center items-center">
             <div className="flex flex-col w-full">
               <label
                 htmlFor="team-member-twitter"

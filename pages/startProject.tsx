@@ -56,11 +56,13 @@ const startProject = (props: Props) => {
 
   const onSubmit = async (data: any) => {
     let project: Project = {} as Project;
-    project.fundRaisingDeadline = parseInt((data.project_duration.getTime() / 1000).toFixed(0))
-    project.goalAmount = data.funding_amt
-    project.title = data.title
-    project.uri = ''
-    console.log(project)
+    project.fundRaisingDeadline = parseInt(
+      (data.project_duration.getTime() / 1000).toFixed(0)
+    );
+    project.goalAmount = data.funding_amt;
+    project.title = data.title;
+    project.uri = "";
+    console.log(project);
     createProject(project);
     console.log(data);
   };
@@ -113,7 +115,7 @@ const startProject = (props: Props) => {
           )}
         </ul>
       </div>
-      <div className="flex flex-col items-center justify-center py-10">
+      <div className="flex flex-col items-center justify-center py-10 text-center">
         <div className="text-3xl font-bold mb-2 font-clash">
           {PageHeadings[formStep].title}
         </div>
@@ -167,7 +169,7 @@ const startProject = (props: Props) => {
                   </button>
                 </div>
               ) : (
-                <div className="w-full flex justify-between">
+                <div className="w-full flex justify-between space-x-2 md:space-x-0">
                   {/* back */}
                   {
                     <button
