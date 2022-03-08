@@ -112,7 +112,7 @@ const Navbar = () => {
           {connectData.connectors.map((connector) => (
             <button
               key={connector.id}
-              onClick={() => connect(connector)}
+              onClick={() => {connect(connector); setIsOpen(false)}}
               className="p-3 bg-black m-3 flex justify-center items-center space-x-3 w-64 rounded-xl"
             >
               {connector.name.toLowerCase() === 'metamask' && <img className="w-10" src="/MetaMask_Fox.svg" />}

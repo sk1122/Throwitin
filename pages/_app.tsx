@@ -11,7 +11,7 @@ import { ExternalProvider } from '@ethersproject/providers'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { supabase } from "../client";
 
 // declare global {
@@ -38,6 +38,16 @@ function MyApp({ Component, pageProps }: AppProps) {
       console.log(e)
     }
   }
+
+  connectContract()
+
+  useEffect(() => {
+    let { ethereum }: any = window
+    
+    ethereum.on('chainChanged', (chainId: string) => {
+      changeNetwork(chainId)
+    })
+  }, [])
 
   const checkWalletIsConnected = async () => {
     try {
@@ -86,15 +96,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   };
 
-  const changeNetwork = async () => {
+  const changeNetwork = async (chainId: string) => {
     try {
       const { ethereum } = window;
 
       if (ethereum) {
-        await ethereum.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x13881" }],
-        });
+        if(chainId !== '0x13881') {
+          toast.error('Connect to Polygon Mumbai Testnet')
+          await ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x13881" }],
+          });
+        }
       } else {
         console.log("Ethereum not found!");
       }

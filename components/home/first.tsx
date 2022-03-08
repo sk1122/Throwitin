@@ -1,4 +1,5 @@
 import Button from "../button";
+import Link from "next/link";
 
 export default function First() {
   return (
@@ -28,7 +29,7 @@ export default function First() {
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam.
           </p>
-          <Button gradient={true}>Start Project</Button>
+          <Button link='/projects' gradient={true}>Start Project</Button>
         </div>
       </div>
       <div className="h-screen bg-gradient-to-br from-brand-heropink via-brand-lightpurple to-brand-lightblue flex justify-center items-end text-left flex-col text-white">
@@ -43,7 +44,7 @@ export default function First() {
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam.
           </p>
-          <Button gradient={false}>Create Project</Button>
+          <Button link='/startProject' gradient={false}>Create Project</Button>  
         </div>
       </div>
     </div>

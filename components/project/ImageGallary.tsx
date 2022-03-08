@@ -10,6 +10,15 @@ export const ImageGallary = (props: Props) => {
     ...props.images
   ]
 
+  const index = productImages.findIndex(image => image.endsWith('logo'))
+  if(index) {
+    let img = productImages[productImages.length - 1]
+    productImages[productImages.length - 1] = productImages[index]
+    productImages[index] = img
+
+    productImages.pop()
+  }
+
   const [currentImg, setCureentImg] = useState(0)
 
   const handleNext = () => {
@@ -35,11 +44,11 @@ export const ImageGallary = (props: Props) => {
   return (
     <>
       <div className=" relative h-[500px] w-full flex-shrink-0">
-        <div className="overflow-hidden flex w-full h-full">
+        <div className="overflow-hidden flex w-full h-full flex justify-center items-center">
 
           {productImages.length > 0 ?
 
-            <img src={productImages[currentImg]} alt="images" className="w-full h-full" />
+            <img src={productImages[currentImg]} alt="images" className="w-fit h-full" />
             : <div className="flex justify-center items-center h-full w-full text-black">
               <p className="text-[2rem]">No images</p>
             </div>

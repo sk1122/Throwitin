@@ -34,7 +34,7 @@ const ProjectBar: FC<Props> = ({ logo, images, title, summary, url, twitter, dis
 				</div>
 			</div>
 			<div className="w-1/2 h-full flex flex-col justify-center items-end px-16">
-				<h2 className="text-xl">{url}</h2>
+				<a href={url} className="text-xl">{url}</a>
 				<div className="space-x-5 text-xl text-white">
 					<a href={twitter} target='_blank'>
 						<i className="fab fa-twitter"></i>

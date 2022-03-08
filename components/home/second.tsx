@@ -5,7 +5,7 @@ import Owner from "./owner";
 type Props = {};
 
 const Second = (props: Props) => {
-  const [componentToLoad, setComponentToLoad] = useState(false);
+  const [componentToLoad, setComponentToLoad] = useState(true);
 
   const handleClick = (isTrue: boolean) => {
     console.log(isTrue);
