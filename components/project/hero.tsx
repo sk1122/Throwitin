@@ -66,7 +66,7 @@ const Hero: FC<Props> = (props) => {
 				</div>
 				<div className="flex flex-col w-full pt-4 space-y-5">
 					<label htmlFor="amount">Amount (USDC)</label>
-					<input disabled={new Date() > new Date(props.deadline as string)} value={amount} onChange={(e) => setAmount(e.target.value)} type="text" name="amount" className="w-full h-14 bg-transparent border border-white px-8 py-1" placeholder="300" />
+					<input  value={amount} onChange={(e) => setAmount(e.target.value)} type="text" name="amount" className="w-full h-14 bg-transparent border border-white px-8 py-1" placeholder="300" />
 					<div onClick={() => submit()} className='bg-gradient-to-r text-white from-brand-heropink via-brand-lightpurple to-brand-lightblue font-poppins flex justify-center items-center w-full h-12 rounded-lg cursor-pointer'>
 						Fund
 					</div>

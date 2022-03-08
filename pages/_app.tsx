@@ -20,7 +20,7 @@ import { supabase } from "../client";
 //   }
 // }
 
-const CONTRACT_ADDRESS = '0x343526EF58f026dc04457C67179431Ad8A0819B5'
+const CONTRACT_ADDRESS = '0xad9Df2d77E563a546f1F65788F564dD56e115263'
 
 function MyApp({ Component, pageProps }: AppProps) {
   
